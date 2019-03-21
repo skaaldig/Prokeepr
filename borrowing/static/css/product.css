@@ -1,0 +1,65 @@
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+/* products */
+
+.product {
+  height: 250px;
+  flex-basis: 25%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.product__wrapper {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  border-bottom: 1px solid black;
+  padding-bottom: 1rem;
+}
+
+.product__img {
+  flex-basis: 25%;
+  height: 100%;
+}
+
+.product__info {
+  flex-basis: 50%;
+  height: 100%;
+  padding: 0 1em;
+  box-sizing: border-box;
+}
+
+.product__header {
+  margin-top: 0;
+  padding-top: 0;
+  font-size: 1.2rem;
+  font-family: Helvetica, "Trebuchet MS", Verdana, sans-serif;
+}
+
+.product__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (max-width: 575px) {
+  .product {
+    height: 150px;
+    font-size: 0.75rem;
+  }
+
+  .product__header {
+    font-size: 0.75rem;
+  }
+}

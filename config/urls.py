@@ -16,7 +16,7 @@ urlpatterns = [
     path("users/", include("borrowing.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-    path("products", include("products.urls")),
+    path("products/", include("product.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

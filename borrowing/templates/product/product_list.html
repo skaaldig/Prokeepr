@@ -2,11 +2,30 @@
 
 {% block content %}
 
-{% for product in products %}
-<h1> {{ product.model_number }}</h1>
 
-<p> {{ product.description }}</p>
+<div class="container">
+  <div class="row">
 
-{% endfor %}
+    {% for product in products %}
+
+      <div class="product">
+        <a class="product__link" href="{{ product.get_absolute_url }}">
+          <div class="product__wrapper">
+            <img class="product__img" src="https://via.placeholder.com/250">
+            <div class="product__info">
+              <h2 class="product__header">{{ product.manufacturer|title }} - {{ product.description }}</h2>
+              <p>Model: {{ product.model_number }}</p>
+              <p>Warehouse: {{ product.warehouse }}</p>
+              <p>Bin Location: {{ product.bin_location }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    {% endfor %}
+
+  </div>
+</div>
+
 
 {% endblock %}
