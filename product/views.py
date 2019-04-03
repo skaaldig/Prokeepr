@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import (
+    ListView, DetailView, CreateView, UpdateView
+)
 from django.db.models import Q
 
 from .models import Product
@@ -29,3 +31,13 @@ class ProductDetailView(DetailView):
     template_name = 'product/product_detail.html'
     context_object_name = 'product'
 
+
+class ProductCreateView(CreateView):
+    model = Product
+    template_name = 'product/product_create.html'
+    fields = '__all__'
+
+class ProductUpdateView(UpdateView):
+    model= Product
+    template_name = 'product/product_create.html'
+    fields = '__all__'
