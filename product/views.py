@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView
 )
 from django.db.models import Q
 
-from .models import Product
+from .models import Product, ProductInstance
 
 
 class ProductListView(ListView):
@@ -37,7 +37,27 @@ class ProductCreateView(CreateView):
     template_name = 'product/product_create.html'
     fields = '__all__'
 
+
 class ProductUpdateView(UpdateView):
     model= Product
     template_name = 'product/product_create.html'
     fields = '__all__'
+
+
+class ProductInstanceBorrowView(CreateView):
+    model = ProductInstance
+    template_name = 'product/product_create.html'
+    fields = ('rental_start', 'rental_end')
+
+    def get_success_url(self):
+        return reverse('all-products')
+
+    def form_valid(self, form):
+        borrowed_product = Product.objects.get(pk=self.kwargs.get('pk'))
+        borrowed_product.loan_status = "o"
+        borrowed_product.save()
+
+        form.instance.borrower = self.request.user
+        form.instance.product = borrowed_product
+        return super().form_valid(form)
+
