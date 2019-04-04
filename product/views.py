@@ -4,7 +4,10 @@ from django.views.generic import (
 )
 from django.db.models import Q
 
+from datetime import date
+
 from .models import Product, ProductInstance
+from .helpers import set_product_availability
 
 
 class ProductListView(ListView):
@@ -53,11 +56,29 @@ class ProductInstanceBorrowView(CreateView):
         return reverse('all-products')
 
     def form_valid(self, form):
-        borrowed_product = Product.objects.get(pk=self.kwargs.get('pk'))
-        borrowed_product.loan_status = "o"
-        borrowed_product.save()
+        related_product = Product.objects.get(pk=self.kwargs.get('pk'))
 
+        set_product_availability(related_product, "o")
         form.instance.borrower = self.request.user
-        form.instance.product = borrowed_product
+        form.instance.product = related_product
+        return super().form_valid(form)
+
+
+class ProductInstanceReturnView(UpdateView):
+    model = ProductInstance
+    template_name = 'product/product_create.html'
+    fields = ('return_note', 'returned_to')
+
+    def get_success_url(self):
+        return reverse('all-products')
+
+    def form_valid(self, form):
+        related_product = Product.objects.get(
+            pk=form.instance.product.id
+        )
+
+        set_product_availability(related_product, "a")
+        today = date.today().strftime("%Y-%m-%d")
+        form.instance.returned = today
         return super().form_valid(form)
 

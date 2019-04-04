@@ -5,7 +5,11 @@ from django.core.exceptions import ValidationError
 from borrowing.users.models import User
 from warehouse.models import Warehouse
 
-
+STATUS = (
+    ('m', 'Maintenance'),
+    ('o', 'On Loan'),
+    ('a', 'Available')
+)
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=150)
@@ -15,12 +19,6 @@ class Manufacturer(models.Model):
 
 
 class Product(models.Model):
-
-    STATUS = (
-        ('m', 'Maintenance'),
-        ('o', 'On Loan'),
-        ('a', 'Available')
-    )
 
     model_number = models.CharField(max_length=255)
     serial_number = models.CharField(max_length=255)
@@ -45,9 +43,12 @@ class ProductInstance(models.Model):
     rental_start = models.DateField()
     rental_end = models.DateField()
     returned = models.DateField(blank=True, null=True)
+    return_note = models.TextField(blank=True, null=True, help_text="Where you left the demo and any notes on condition")
 
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     borrower = models.ForeignKey('users.User', blank=True, on_delete=models.CASCADE)
+    returned_to = models.ForeignKey('warehouse.Warehouse', null=True, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return f"{self.product} {self.borrower} {self.requested}"
