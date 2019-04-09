@@ -1,36 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-
 <div class="container">
   <div class="row">
 
-    {% include 'product/product_search.html' %}
-
     {% for product in products %}
       <div class="product">
-        <a class="product__link" href="{{ product.get_absolute_url }}">
+
           <div class="product__wrapper">
-            <img class="product__img" src="http://www.accontrols.com/assets/images/landings/STT850-Smartline-Transmitter-web.jpg">
-            <div class="product__info">
-              <h2 class="product__header">{{ product.manufacturer|title }} - {{ product.description }}</h2>
-              <p>Model: {{ product.model_number }}</p>
-              <p>Warehouse: {{ product.warehouse }}</p>
-              <p>Bin Location: {{ product.bin_location }}</p>
+
+            <div class="product__img-wrapper">
+              <img class="product__img" src="http://www.accontrols.com/assets/images/landings/STT850-Smartline-Transmitter-web.jpg">
+            </div>
+
+
+            <div class="product__details">
+              <h4 class="product__title">{{ product.manufacturer|title }} - {{ product.description }}</h4>
+              <span class="product__id"><b>Model:</b> {{ product.model_number }}</span>
+              <span class="product__id"><b>Serial:</b> {{ product.serial_number }} </span>
+
+
+              <p><b>Bin Location:</b> {{ product.bin_location }}</p>
 
               {% if product.borrower %}
-              <p>Borrowed By: {{ product.borrower }}</p>
+              <p><b>Borrowed By:</b> {{ product.borrower }}</p>
               {% endif %}
             </div>
+
+            <div class="product__controls">
+              <h4 class="product__status">{{ product.get_loan_status_display }}</h4>
+
+              <p>Location - {{ product.warehouse }} Warehouse</p>
+              <button class="fancy-button fancy-button_full">Borrow Unit</button>
+
+            </div>
+
+
+
           </div>
-        </a>
+
       </div>
     {% endfor %}
-  </div>
-</div>
 
-<div class="pagination">
+
+  </div>
+
+
+  <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
@@ -47,5 +63,13 @@
         {% endif %}
     </span>
 </div>
+
+
+</div>
+
+
+
+
+
 
 {% endblock %}
