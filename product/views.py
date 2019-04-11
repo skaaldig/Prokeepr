@@ -1,6 +1,6 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, get_object_or_404
 from django.views.generic import (
-    ListView, DetailView, CreateView, UpdateView
+    ListView, DetailView, CreateView, UpdateView, View, RedirectView
 )
 from django.db.models import Q
 
@@ -8,7 +8,6 @@ from datetime import date
 
 from .models import Product, ProductInstance
 from .helpers import set_product_availability
-
 
 class ProductListView(ListView):
     model = Product
@@ -29,12 +28,6 @@ class ProductListView(ListView):
         return queryset
 
 
-class ProductDetailView(DetailView):
-    model = Product
-    template_name = 'product/product_detail.html'
-    context_object_name = 'product'
-
-
 class ProductCreateView(CreateView):
     model = Product
     template_name = 'product/product_create.html'
@@ -49,7 +42,7 @@ class ProductUpdateView(UpdateView):
 
 class ProductInstanceBorrowView(CreateView):
     model = ProductInstance
-    template_name = 'product/product_create.html'
+    template_name = 'product/product_borrow.html'
     fields = ('rental_start', 'rental_end')
 
     def get_success_url(self):
@@ -66,7 +59,7 @@ class ProductInstanceBorrowView(CreateView):
 
 class ProductInstanceReturnView(UpdateView):
     model = ProductInstance
-    template_name = 'product/product_create.html'
+    template_name = 'product/return_form.html'
     fields = ('return_note', 'returned_to')
 
     def get_success_url(self):
@@ -81,4 +74,16 @@ class ProductInstanceReturnView(UpdateView):
         today = date.today().strftime("%Y-%m-%d")
         form.instance.returned = today
         return super().form_valid(form)
+
+
+class ProductRedirectView(RedirectView):
+    permanent=False
+
+    def get_redirect_url(self, *args, **kwargs):
+        product = get_object_or_404(Product, pk=kwargs['pk'], loan_status="o")
+        product_instance = get_object_or_404(
+            ProductInstance, product=product,
+            borrower=self.request.user
+        )
+        return reverse('product-return', args=[product_instance.id])
 
