@@ -24,7 +24,7 @@ class ProductListView(ListView):
         if search:
             return queryset.filter(
                 Q(manufacturer__name__icontains=search) |
-                Q(description__icontains=search)  |
+                Q(human_readable_name__icontains=search)  |
                 Q(model_number__icontains=search)
             )
         return queryset

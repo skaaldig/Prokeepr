@@ -12,7 +12,7 @@
         <!--</div>-->
 
         <div class="navbar__searchbar">
-          <form>
+          <form action="{% url 'all-products' %}" method="GET">
           <input class="navbar__input" type="text" name="q" placeholder="Search demo units..">
           </form>
         </div>
