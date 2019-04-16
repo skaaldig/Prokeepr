@@ -5,9 +5,9 @@
   <div class="row">
 
     {% for product in products %}
-      <div class="product">
+      <div class="product product--spacing">
 
-          <div class="product__wrapper">
+          <div class="product__wrapper product__wrapper--250">
 
             <div class="product__img-wrapper">
               <img class="product__img" src="http://www.accontrols.com/assets/images/landings/STT850-Smartline-Transmitter-web.jpg">
@@ -15,27 +15,36 @@
 
 
             <div class="product__details">
-              <h4 class="product__title">{{ product.manufacturer|title }} - {{ product.description }}</h4>
+              <h4 class="product__title">{{ product.manufacturer|title }} - {{ product.human_readable_name }}</h4>
               <span class="product__id"><b>Model:</b> {{ product.model_number }}</span>
               <span class="product__id"><b>Serial:</b> {{ product.serial_number }} </span>
 
 
               <p><b>Bin Location:</b> {{ product.bin_location }}</p>
 
-              {% if product.borrower %}
-              <p><b>Borrowed By:</b> {{ product.borrower }}</p>
-              {% endif %}
             </div>
 
             <div class="product__controls">
-              <h4 class="product__status">{{ product.get_loan_status_display }}</h4>
 
+              <h4 class="product__status">{{ product.get_loan_status_display }}</h4>
               <p>Location - {{ product.warehouse }} Warehouse</p>
-              <button class="fancy-button fancy-button_full">Borrow Unit</button>
+
+              {% if product.current_borrower %}
+              <p><b>Borrowed By:</b> {{ product.current_borrower }}</p>
+              {% endif %}
+
+              {% if product.loan_status == "a" %}
+              <a href="{% url 'product-borrow' product.pk %}" class="fancy-button fancy-button_full">Borrow Unit</a>
+
+              {% elif product.loan_status == "o" and request.get.user == product.borrower %}
+              <a class="fancy-button fancy-button_full" href="{% url 'return-redirect' product.pk %}">Return Unit</a>
+
+              {% else %}
+              <a class="fancy-button fancy-button_full">Unavailable</a>
+
+              {% endif %}
 
             </div>
-
-
 
           </div>
 

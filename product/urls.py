@@ -9,5 +9,6 @@ urlpatterns = [
     path('borrow/<int:pk>/', views.ProductInstanceBorrowView.as_view(), name="product-borrow"),
     path('edit/<int:pk>/', views.ProductUpdateView.as_view(), name="product-edit"),
     path('add/', views.ProductCreateView.as_view(), name="product-add"),
+    path('borrowed/', views.BorrowedProductListView.as_view(), name="borrowed"),
     path('all/', views.ProductListView.as_view(), name="all-products"),
 ]

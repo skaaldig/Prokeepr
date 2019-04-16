@@ -14,22 +14,37 @@ body {
   flex-flow: column wrap;
 }
 
+.column {
+  display: flex;
+  flex-flow: row wrap;
+}
 
+.hr {
+  border: 1px solid #0046be;
+  width: 100%;
+}
 
 /* Product List */
 .product {
   flex-basis: 25%;
-  margin-bottom: 5%;
   box-sizing: border-box;
 }
 
+.product--spacing {
+  margin-bottom: 5%;
+}
+
 .product__wrapper {
-  height: 100%;
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
  }
+
+ .product__wrapper--250 {
+  height: 250px;
+ }
+
 
 .product__img-wrapper {
   flex-basis: 30%;
@@ -39,6 +54,7 @@ body {
 .product__img {
   width: 100%;
   height: auto;
+  overflow: hidden;
 }
 
 .product__details {
@@ -69,6 +85,7 @@ body {
 }
 
 @media (max-width: 900px) {
+
   .container {
     max-width: 100%;
   }
@@ -135,6 +152,13 @@ body {
   color: white;
   font-family: Helvetica, "Trebuchet MS", Verdana, sans-serif;
   font-weight: 500;
+  text-decoration: none;
+}
+
+/* Fix this should give a class name to a tag */
+.navbar__link a {
+  text-decoration: none;
+  color: white;
 }
 
 .navbar__icon {
@@ -155,6 +179,8 @@ body {
   font-weight: bold;
   border-radius: 0.25rem;
   font-size: 1em;
+  text-decoration: none;
+  color: black;
 }
 
 .fancy-button:hover {
@@ -162,5 +188,62 @@ body {
 }
 
 .fancy-button_full {
-  width: 75%;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  color: black;
+}
+
+/* Borrow */
+
+.borrow__detail-container{
+  flex-basis: 50%;
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.borrow__begin-date {
+  margin: 7% 20% 0 20%;
+  flex-basis: 100%;
+  background-color: #0260FF;
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.borrow__form {
+  text-align: center;
+}
+
+.borrow__return-date-header {
+  color: #124aa5;
+}
+
+.borrow__input-group {
+  position: relative;
+}
+
+.borrow__input {
+  border-radius: 0.2rem;
+  border-style: 1px solid #3281ff;
+  height: 2rem;
+
+}
+
+.borrow__form-wrapper {
+}
+
+.borrow__submit {
+  width: 100%;
+  height: auto;
+  padding: 5rem 0 1rem 0;
+}
+
+
+@media (max-width: 900px) {
+  .column {
+    flex-flow: column wrap;
+  }
+
 }

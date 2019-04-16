@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field.errors }}
+    {{ hidden_field }}
+  {% endfor %}
+
+  <div>
+    {{ form.rental_end.errors }}
+    {{ form.rental_end }}
+  </div>
+
+
+
+
+    <input type="submit" value="borrow">
+</form>
+{% endblock %}

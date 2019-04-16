@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+<div class="row">
+
+<div class="borrow__detail-container">
+  <div class="borrow__begin-date">
+    <h2>Rental will begin on:</h2>
+    <span class="borrow__today">{% now 'm/d/Y' %}</span>
+  </div>
+
+  <div class="borrow__form-wrapper">
+    <form class="borrow__form" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field.errors }}
+          {{ hidden_field }}
+        {% endfor %}
+
+        <h3 class="borrow__return-date-header">SELECT RETURN DATE</h3>
+
+        <div class="borrow__input-group">
+          {{ form.rental_end.errors }}
+           <input class="borrow__input" name="return_end" type="date">
+        </div>
+
+        <div class="borrow__submit">
+            <a href="{% url 'product-borrow' product.pk %}" class="fancy-button">Request Unit</a>
+        </div>
+      </form>
+    </div>
+</div>
+
+<hr class="hr">
+
+<div class="product">
+
+  <div class="product__wrapper">
+
+    <div class="product__img-wrapper">
+      <img class="product__img" src="http://www.accontrols.com/assets/images/landings/STT850-Smartline-Transmitter-web.jpg">
+    </div>
+
+
+    <div class="product__details">
+      <h4 class="product__title">{{ product.manufacturer|title }} - {{ product.human_readable_name }}</h4>
+      <span class="product__id"><b>Model:</b> {{ product.model_number }}</span>
+      <span class="product__id"><b>Serial:</b> {{ product.serial_number }} </span>
+
+
+      <p><b>Bin Location:</b> {{ product.bin_location }}</p>
+
+    </div>
+
+    <div class="product__controls">
+
+      <h4 class="product__status">{{ product.get_loan_status_display }}</h4>
+      <p>Location - {{ product.warehouse }} Warehouse</p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+</div>
+</div>
+
+
+{% endblock %}
