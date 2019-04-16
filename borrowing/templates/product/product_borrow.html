@@ -12,7 +12,7 @@
   </div>
 
   <div class="borrow__form-wrapper">
-    <form class="borrow__form" method="post">
+    <form class="borrow__form" method="POST">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
@@ -25,11 +25,11 @@
 
         <div class="borrow__input-group">
           {{ form.rental_end.errors }}
-           <input class="borrow__input" name="return_end" type="date">
+           <input class="borrow__input" name="rental_end" type="date">
         </div>
 
         <div class="borrow__submit">
-            <a href="{% url 'product-borrow' product.pk %}" class="fancy-button">Request Unit</a>
+            <button class="fancy-button" type="submit" value="submit">Request Unit</button>
         </div>
       </form>
     </div>
