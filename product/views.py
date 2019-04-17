@@ -7,8 +7,10 @@ from django.db.models import Q
 
 from datetime import date
 
+from .forms import ReturnProductForm
 from .models import Product, ProductInstance
 from .helpers import set_product_availability, set_current_borrower
+
 
 class ProductListView(ListView):
     model = Product
@@ -66,10 +68,11 @@ class ProductInstanceBorrowView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductInstanceReturnView(LoginRequiredMixin, UpdateView):
+class ProductInstanceReturnView(UpdateView):
     model = ProductInstance
+    context_object_name = 'product'
     template_name = 'product/return_form.html'
-    fields = ('return_note', 'returned_to')
+    form_class = ReturnProductForm
 
     def get_success_url(self):
         return reverse('all-products')
