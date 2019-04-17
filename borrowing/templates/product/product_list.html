@@ -30,13 +30,13 @@
               <p>Location - {{ product.warehouse }} Warehouse</p>
 
               {% if product.current_borrower %}
-              <p><b>Borrowed By:</b> {{ product.current_borrower }}</p>
+              <p><b>Borrowed By:</b> {{ product.current_borrower.first }} {{ product.current_borrower.last }}</p>
               {% endif %}
 
               {% if product.loan_status == "a" %}
               <a href="{% url 'product-borrow' product.pk %}" class="fancy-button fancy-button_full">Borrow Unit</a>
 
-              {% elif product.loan_status == "o" and request.get.user == product.borrower %}
+              {% elif product.loan_status == "o" and user == product.current_borrower %}
               <a class="fancy-button fancy-button_full" href="{% url 'return-redirect' product.pk %}">Return Unit</a>
 
               {% else %}
