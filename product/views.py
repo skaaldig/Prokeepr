@@ -12,7 +12,7 @@ from .models import Product, ProductInstance
 from .helpers import set_product_availability, set_current_borrower
 
 
-class ProductListView(ListView):
+class ProductList(ListView):
     model = Product
     template_name = 'product/product_list.html'
     context_object_name = 'products'
@@ -20,7 +20,7 @@ class ProductListView(ListView):
 
 
     def get_queryset(self):
-        queryset = super(ProductListView, self).get_queryset()
+        queryset = super(ProductList, self).get_queryset()
         search = self.request.GET.get("q")
 
         if search:
@@ -32,19 +32,7 @@ class ProductListView(ListView):
         return queryset
 
 
-class ProductCreateView(CreateView):
-    model = Product
-    template_name = 'product/product_create.html'
-    fields = '__all__'
-
-
-class ProductUpdateView(UpdateView):
-    model= Product
-    template_name = 'product/product_create.html'
-    fields = '__all__'
-
-
-class ProductInstanceBorrowView(LoginRequiredMixin, CreateView):
+class ProductInstanceBorrow(LoginRequiredMixin, CreateView):
     model = ProductInstance
     template_name = 'product/product_borrow.html'
     fields = ('rental_end',)
@@ -72,14 +60,14 @@ class ProductInstanceBorrowView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductInstanceReturnView(LoginRequiredMixin, UpdateView):
+class ProductInstanceReturn(LoginRequiredMixin, UpdateView):
     model = ProductInstance
     context_object_name = 'product'
     template_name = 'product/return_form.html'
     form_class = ReturnProductForm
 
     def get_queryset(self):
-        query = super(ProductInstanceReturnView, self).get_queryset()
+        query = super(ProductInstanceReturn, self).get_queryset()
         query = query.filter(borrower=self.request.user)
         return query
 
@@ -98,20 +86,20 @@ class ProductInstanceReturnView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class BorrowedProductListView(LoginRequiredMixin, ListView):
+class BorrowedProductList(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'product/product_list.html'
     context_object_name = 'products'
 
     def get_queryset(self):
-        queryset = super(BorrowedProductListView, self).get_queryset()
+        queryset = super(BorrowedProductList, self).get_queryset()
         borrowed_products = queryset.filter(
             current_borrower=self.request.user
         )
         return borrowed_products
 
 
-class ReturnRedirectView(RedirectView):
+class ProductInstanceRedirect(RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
