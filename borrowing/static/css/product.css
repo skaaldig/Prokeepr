@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-  max-width: 75%;
+  max-width: 80%;
   margin: 0 auto;
 }
 
@@ -62,7 +62,7 @@ body {
   height: 100%;
   font-size: 0.90rem;
   text-decoration: none;
-  padding-left: 2rem;
+  padding:0 2rem;
 }
 
 .product__controls {
@@ -84,7 +84,7 @@ body {
   display: block;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
 
   .container {
     max-width: 100%;
@@ -105,7 +105,7 @@ body {
   border-bottom-style: solid;
   border-bottom-color: black;
   border-bottom-width: 1px;
-  background-color: #0046be;
+  background-color: #008362;
 }
 
 .navbar__wrapper {
@@ -123,7 +123,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 3rem;
   padding: 0 1rem;
 }
 
@@ -133,10 +133,10 @@ body {
 }
 
 .navbar__input{
-  border-radius: .3rem;
   border-style: none;
-  height: 1.50rem;
+  height: 2rem;
   font-size: 1rem;
+  text-indent: 1rem;
   width: 100%;
 }
 
@@ -161,26 +161,28 @@ body {
   color: white;
 }
 
-.navbar__icon {
-  color: white;
+.navbar__img {
+  width: 50%;
+  height: auto;
 }
 
 .navbar__logo {
-  display: block;
+  width: 100%;
+  text-align: center;
+
 }
 
 
 
 /* Buttons */
 .fancy-button {
-  background-color: #ffe001; /* #afff30; */
-  border: 1px solid #ffe001;
+  background-color: #00A37A;
+  border: 1px solid #00A37A;
   padding: 0.70rem;
   font-weight: bold;
-  border-radius: 0.25rem;
   font-size: 1em;
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 .fancy-button:hover {
@@ -192,8 +194,21 @@ body {
   display: inline-block;
   width: 100%;
   box-sizing: border-box;
-  color: black;
+  color: white;
 }
+
+.fancy-button--unavailable {
+  background-color: #3f4042;
+  border: 1px solid black;
+  color: white;
+}
+
+.fancy-button--return {
+  background-color: #ff2222;
+  border: 1px solid #ff2222;
+  color: white;
+}
+
 
 /* Borrow */
 
@@ -204,10 +219,8 @@ body {
 }
 
 .borrow__begin-date {
-  margin: 7% 20% 0 20%;
+  margin: 0 0 1% 0;
   flex-basis: 100%;
-  background-color: #0260FF;
-  color: white;
   text-align: center;
   padding: 1.5rem;
 }
@@ -216,7 +229,7 @@ body {
   text-align: center;
 }
 
-.borrow__return-date-header {
+.borrow__header--b {
   color: #124aa5;
 }
 
@@ -232,18 +245,42 @@ body {
 }
 
 .borrow__form-wrapper {
+  margin-top: 5%;
 }
 
 .borrow__submit {
   width: 100%;
   height: auto;
-  padding: 5rem 0 1rem 0;
+  padding: 2rem 0 1rem 0;
+}
+
+.borrow__textarea {
+  width: 50%;
+  height: 250px;
+  box-sizing: border-box;
+}
+
+.borrow__returned-to {
+  width: 50%;
+  box-sizing: border-box;
+  font-weight: bold;
+  height: 2rem;
 }
 
 
 @media (max-width: 900px) {
-  .column {
-    flex-flow: column wrap;
+  .borrow__textarea {
+    width: 75%;
   }
 
+  .borrow__returned-to {
+    width: 75%;
+  }
+}
+
+/* Pagination */
+.pagination {
+  text-align: right;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
 }
