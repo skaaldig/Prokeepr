@@ -1,11 +1,11 @@
+from datetime import date
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, reverse, get_object_or_404
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, View, RedirectView
 )
 from django.db.models import Q
-
-from datetime import date
 
 from .forms import ReturnProductForm
 from .models import Product, ProductInstance
@@ -17,7 +17,7 @@ class ProductList(ListView):
     template_name = 'product/product_list.html'
     context_object_name = 'products'
     paginate_by = 25
-
+    ordering = ["-human_readable_name"]
 
     def get_queryset(self):
         queryset = super(ProductList, self).get_queryset()

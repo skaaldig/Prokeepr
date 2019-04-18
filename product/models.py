@@ -11,6 +11,11 @@ STATUS = (
     ('a', 'Available')
 )
 
+
+def manufacturer_directory(instance, filename):
+    return f'{instance.manufacturer}/{filename}'
+
+
 class Manufacturer(models.Model):
     name = models.CharField(max_length=150)
 
@@ -19,7 +24,7 @@ class Manufacturer(models.Model):
 
 
 class Product(models.Model):
-
+    image = models.ImageField(upload_to=manufacturer_directory, null=True)
     model_number = models.CharField(max_length=255)
     serial_number = models.CharField(max_length=255)
     human_readable_name = models.CharField(max_length=255)
@@ -36,6 +41,8 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product-detail', args=[self.pk])
+
+
 
 
 class ProductInstance(models.Model):

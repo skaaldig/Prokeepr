@@ -337,4 +337,6 @@ borrowing/media/
 
 .pytest_cache/
 
-
+### images
+*.png
+*.jpg
