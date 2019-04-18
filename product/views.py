@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, reverse, get_object_or_404
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, View, RedirectView
@@ -49,6 +49,10 @@ class ProductInstanceBorrowView(LoginRequiredMixin, CreateView):
     template_name = 'product/product_borrow.html'
     fields = ('rental_end',)
 
+    def dispatch(self, request, *args, **kwargs):
+        self.product = get_object_or_404(Product, pk=kwargs["pk"], loan_status="a")
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product = Product.objects.get(pk=self.kwargs['pk'])
@@ -68,11 +72,16 @@ class ProductInstanceBorrowView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductInstanceReturnView(UpdateView):
+class ProductInstanceReturnView(LoginRequiredMixin, UpdateView):
     model = ProductInstance
     context_object_name = 'product'
     template_name = 'product/return_form.html'
     form_class = ReturnProductForm
+
+    def get_queryset(self):
+        query = super(ProductInstanceReturnView, self).get_queryset()
+        query = query.filter(borrower=self.request.user)
+        return query
 
     def get_success_url(self):
         return reverse('all-products')
@@ -89,7 +98,20 @@ class ProductInstanceReturnView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductRedirectView(RedirectView):
+class BorrowedProductListView(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = 'product/product_list.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        queryset = super(BorrowedProductListView, self).get_queryset()
+        borrowed_products = queryset.filter(
+            current_borrower=self.request.user
+        )
+        return borrowed_products
+
+
+class ReturnRedirectView(RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
@@ -102,14 +124,4 @@ class ProductRedirectView(RedirectView):
         return reverse('product-return', args=[product_instance.id])
 
 
-class BorrowedProductListView(LoginRequiredMixin, ListView):
-    model = Product
-    template_name = 'product/product_list.html'
-    context_object_name = 'products'
 
-    def get_queryset(self):
-        queryset = super(BorrowedProductListView, self).get_queryset()
-        borrowed_products = queryset.filter(
-            current_borrower=self.request.user
-        )
-        return borrowed_products
