@@ -4,11 +4,9 @@ from . import views
 
 urlpatterns = [
 
-    path('return/<int:pk>/', views.ProductInstanceReturnView.as_view(), name="product-return"),
-    path('redirect/<int:pk>/', views.ProductRedirectView.as_view(), name="return-redirect"),
-    path('borrow/<int:pk>/', views.ProductInstanceBorrowView.as_view(), name="product-borrow"),
-    path('edit/<int:pk>/', views.ProductUpdateView.as_view(), name="product-edit"),
-    path('add/', views.ProductCreateView.as_view(), name="product-add"),
-    path('borrowed/', views.BorrowedProductListView.as_view(), name="borrowed"),
-    path('all/', views.ProductListView.as_view(), name="all-products"),
+    path('return/<int:pk>/', views.ProductInstanceReturn.as_view(), name="product-return"),
+    path('redirect/<int:pk>/', views.ProductInstanceRedirect.as_view(), name="return-redirect"),
+    path('borrow/<int:pk>/', views.ProductInstanceBorrow.as_view(), name="product-borrow"),
+    path('borrowed/', views.BorrowedProductList.as_view(), name="borrowed"),
+    path('all/', views.ProductList.as_view(), name="all-products"),
 ]
