@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+<div class="row">
+
+  <div class="create__form-wrapper">
+
+    <form class="create__form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field.errors }}
+          {{ hidden_field }}
+        {% endfor %}
+
+      <ul class="create__fields">
+        <li class="create__field">
+          {{ form.manufacturer.errors }}
+          <label class="create__label" for="{{ form.manufacturer.id_for_label }}"> {{form.manufacturer.label }}</label>
+          {{ form.manufacturer }}
+        </li>
+
+        <li class="create__field">
+          {{ form.human_readable_name.errors }}
+          <label class="create__label" for="{{ form.human_readable_name.id_for_label }}">Human Name</label>
+          <input name="human_readable_name" class="create__input" value="{{ form.human_readable_name.value }}">
+        </li>
+
+        <li class="create__field">
+          {{ form.model_number.errors }}
+          <label class="create__label" for="{{ form.model_number.id_for_label }}" > {{form.model_number.label }}</label>
+          <input name="model_number" class="create__input" value="{{ form.model_number.value }}">
+        </li>
+
+        <li class="create__field">
+          {{ form.model_number.errors }}
+          <label class="create__label" for="{{ form.serial_number.id_for_label }}"> {{form.serial_number.label }}</label>
+          <input name="serial_number" class="create__input" value="{{ form.serial_number.value }}">
+        </li>
+
+        <li class="create__field">
+          {{ form.manufacturer.errors }}
+          <label class="create__label" for="{{ form.warehouse.id_for_label }}"> {{form.warehouse.label }}</label>
+          {{ form.warehouse }}
+        </li>
+
+        <li class="create__field">
+          {{ form.model_number.errors }}
+          <label class="create__label" for="{{ form.bin_location.id_for_label }}"> {{form.bin_location.label }}</label>
+          <input name="bin_location" class="create__input" value="{{ form.bin_location.value }}">
+        </li>
+
+        <li class="create__field">
+          {{ form.image.errors }}
+          <label class="create__label" for="{{ form.image.id_for_label }}">Image</label>
+          {{ form.image }}
+        </li>
+
+        <li class="create__field">
+          <button class="fancy-button create__submit" type="submit" value="submit">Create Product</button>
+        </li>
+      </ul>
+    </form>
+  </div>
+
+</div>
+</div>
+
+{% endblock %}
