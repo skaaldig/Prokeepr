@@ -10,7 +10,11 @@
           <div class="product__wrapper product__wrapper--250">
 
             <div class="product__img-wrapper">
-              <img class="product__img" src="http://www.accontrols.com/assets/images/landings/STT850-Smartline-Transmitter-web.jpg">
+              {% if product.image %}
+              <img class="product__img" src="{{ product.image.url }}">
+              {% else %}
+              <img class="product__img" src="https://via.placeholder.com/400x321">
+              {% endif %}
             </div>
 
 
@@ -30,20 +34,22 @@
               <p>Location - {{ product.warehouse }} Warehouse</p>
 
               {% if product.current_borrower %}
-              <p><b>Borrowed By:</b> {{ product.current_borrower.first }} {{ product.current_borrower.last }}</p>
+              <p><b>Borrowed By:</b> {{ product.current_borrower.first_name }} {{ product.current_borrower.last_name }}</p>
               {% endif %}
 
               {% if product.loan_status == "a" %}
               <a href="{% url 'product-borrow' product.pk %}" class="fancy-button fancy-button_full">Borrow Unit</a>
 
               {% elif product.loan_status == "o" and user == product.current_borrower %}
-              <a class="fancy-button fancy-button_full" href="{% url 'return-redirect' product.pk %}">Return Unit</a>
+              <a class="fancy-button fancy-button_full fancy-button--return" href="{% url 'return-redirect' product.pk %}">Return Unit</a>
 
               {% else %}
-              <a class="fancy-button fancy-button_full">Unavailable</a>
-
+              <a class="fancy-button fancy-button_full fancy-button--unavailable">Unavailable</a>
               {% endif %}
 
+              {% if request.user.is_superuser %}
+                <a class="fancy-button fancy-button_full fancy-button--maintain" href="{% url 'product-update' product.pk %}">Update Unit</a>
+              {% endif %}
             </div>
 
           </div>
@@ -56,19 +62,19 @@
 
 
   <div class="pagination">
-    <span class="step-links">
+    <span class="pagination__step-links">
         {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            <a class="pagination__first" href="?page=1">&laquo; first</a>
+            <a class="pagination__previous" href="?page={{ page_obj.previous_page_number }}">previous</a>
         {% endif %}
 
-        <span class="current">
+        <span class="pagination__current">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            <a class="pagination__next" href="?page={{ page_obj.next_page_number }}">next</a>
+            <a class="pagination__last" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
 </div>

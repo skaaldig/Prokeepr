@@ -1,16 +1,17 @@
+{% load static %}
+
 <div class="navbar__container">
   <div class="navbar__wrapper">
 
 
     <nav class="navbar">
 
-      <!--<i class="fas fa-bars fa-2x navbar__hamburger"></i>-->
+
+      <div class="navbar__logo">
+        <img class="navbar__img" src="{% static 'images/prokeeperlogo.png' %}">
+      </div>
 
       <div class="navbar__search">
-        <!--<div class="navbar__logo">-->
-          <!--<i class="fas fa-robot fa-5x navbar__icon"></i>-->
-        <!--</div>-->
-
         <div class="navbar__searchbar">
           <form action="{% url 'all-products' %}" method="GET">
           <input class="navbar__input" type="text" name="q" placeholder="Search demo units..">
@@ -22,6 +23,11 @@
         <div class="navbar__link"><a href="{% url 'all-products' %}">All Products</a></div>
         <div class="navbar__link"><a href="{% url 'borrowed' %}">My Products</a></div>
         <div class="navbar__link"><a>Account</a></div>
+
+        {% if request.user.is_superuser %}
+        <div class="navbar__link"><a href="{% url 'rental-history' %}">Loan History</a></div>
+        {% endif %}
+
       </div>
 
 

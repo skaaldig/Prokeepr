@@ -1,11 +1,77 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit">
-</form>
+
+<div class="container">
+<div class="row">
+
+<div class="borrow__detail-container">
+
+  <div class="borrow__form-wrapper">
+    <h2>Returning - {{ product.product.manufacturer }} {{ product.product.human_readable_name }}</h2>
+    <form class="borrow__form" method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field.errors }}
+          {{ hidden_field }}
+        {% endfor %}
+
+        <h5>Which Warehouse did you return the unit to?</h5>
+        <div class="borrow__input-group">
+          {{ form.returned_to }}
+        </div>
+
+        <h5>Return Notes (Where did you leave it? / condition of unit)</h5>
+        <div class="borrow__input-group">
+          {{ form.returned_to.errors }}
+          <textarea class="borrow__textarea" name="return_note"></textarea>
+        </div>
+
+
+        <div class="borrow__submit">
+            <button class="fancy-button" type="submit" value="submit">Return Unit</button>
+        </div>
+      </form>
+    </div>
+</div>
+
+<hr class="hr">
+
+<div class="product">
+
+  <div class="product__wrapper">
+
+    <div class="product__img-wrapper">
+      <img class="product__img" src="http://www.accontrols.com/assets/images/landings/STT850-Smartline-Transmitter-web.jpg">
+    </div>
+
+
+    <div class="product__details">
+      <h4 class="product__title">{{ product.product.manufacturer|title }} - {{ product.product.human_readable_name }}</h4>
+      <span class="product__id"><b>Model:</b> {{ product.product.model_number }}</span>
+      <span class="product__id"><b>Serial:</b> {{ product.product.serial_number }} </span>
+
+
+      <p><b>Bin Location:</b> {{ product.product.bin_location }}</p>
+
+    </div>
+
+    <div class="product__controls">
+
+      <h4 class="product__status">{{ product.product.get_loan_status_display }}</h4>
+      <p>Location - {{ product.product.warehouse }} Warehouse</p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+</div>
+</div>
+
+
 {% endblock %}

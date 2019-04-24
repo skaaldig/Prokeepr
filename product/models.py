@@ -30,7 +30,7 @@ class Product(models.Model):
     human_readable_name = models.CharField(max_length=255)
     created = models.DateField(auto_now_add=True)
     bin_location = models.CharField(max_length=25)
-    loan_status = models.CharField(max_length=1, choices=STATUS)
+    loan_status = models.CharField(max_length=1, choices=STATUS, default="a")
 
     manufacturer = models.ForeignKey('Manufacturer', on_delete=models.CASCADE)
     warehouse = models.ForeignKey('warehouse.Warehouse', null=True, on_delete=models.CASCADE)

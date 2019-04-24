@@ -6,10 +6,6 @@
 <div class="row">
 
 <div class="borrow__detail-container">
-  <div class="borrow__begin-date">
-    <h2>Rental will begin on:</h2>
-    <span class="borrow__today">{% now 'm/d/Y' %}</span>
-  </div>
 
   <div class="borrow__form-wrapper">
     <form class="borrow__form" method="POST">
@@ -21,7 +17,7 @@
           {{ hidden_field }}
         {% endfor %}
 
-        <h3 class="borrow__return-date-header">SELECT RETURN DATE</h3>
+        <h3 class="borrow__header">When will you return this unit?</h3>
 
         <div class="borrow__input-group">
           {{ form.rental_end.errors }}
@@ -33,6 +29,12 @@
         </div>
       </form>
     </div>
+
+    <div class="borrow__begin-date">
+      <h4 class="borrow__header">Your rental will begin on:</h4>
+      <span class="borrow__today">{% now 'm/d/Y' %}</span>
+    </div>
+
 </div>
 
 <hr class="hr">

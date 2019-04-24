@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+
+    <table class="data__table">
+      <thead class="data__head">
+        <tr class="data__column-names">
+          <th>Borrower</th>
+          <th>Name</th>
+          <th>Model</th>
+          <th>Borrowed</th>
+          <th>Rental End</th>
+          <th>Returned</th>
+          <th>Returned To</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for rental in rentals %}
+      <tr class="data__row">
+        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">
+          {{ rental.borrower }}
+        </td>
+        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.product.human_readable_name }}</td>
+        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.product.serial_number }}</td>
+        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.requested|date:"m/d/y" }}</td>
+        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.rental_end|date:"m/d/y" }}</td>
+        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.returned|date:"m/d/y" }}</td>
+        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.returned_to }} Warehouse</td>
+      </tr>
+
+      <tr class="data__details {% cycle 'data__cell--grey' 'data__cell' %}">
+        <td class="data__serial" colspan="2">Serial: {{ rental.product.serial_number }}</td>
+        <td class="data__note-title">User Notes:</td>
+        <td class="data__note" colspan="4">{{ rental.return_note }}</td>
+      </tr>
+
+
+      {% endfor %}
+      </tbody>
+
+
+    </table>
+
+    <div class="pagination">
+      <span class="pagination__step-links">
+          {% if page_obj.has_previous %}
+              <a class="pagination__first" href="?page=1">&laquo; first</a>
+              <a class="pagination__previous" href="?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="pagination__current">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+
+          {% if page_obj.has_next %}
+              <a class="pagination__next" href="?page={{ page_obj.next_page_number }}">next</a>
+              <a class="pagination__last" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

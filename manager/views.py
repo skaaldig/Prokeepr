@@ -1,25 +1,11 @@
-from django.shortcuts import reverse
-from product.models import Product
+from product.models import Product, ProductInstance
 
-from django.views.generic import (
-    ListView, DetailView, CreateView, UpdateView, View, RedirectView
-)
-
-from .forms import CreateProductForm
-
-class ProductCreate(CreateView):
-    model = Product
-    form_class = CreateProductForm
-    template_name = 'manager/create_product.html'
-
-    def get_success_url(self):
-        return reverse('all-products')
+from django.views.generic import ListView
 
 
-class ProductUpdate(UpdateView):
-    model = Product
-    form_class = CreateProductForm
-    template_name = 'manager/create_product.html'
-
-    def get_success_url(self):
-        return reverse('all-products')
+class RentalHistory(ListView):
+    model = ProductInstance
+    template_name = 'manager/rental_history.html'
+    context_object_name = 'rentals'
+    paginate_by = 10
+    ordering = ('-requested',)

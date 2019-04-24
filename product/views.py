@@ -7,7 +7,7 @@ from django.views.generic import (
 )
 from django.db.models import Q
 
-from .forms import ReturnProductForm
+from .forms import ReturnProductForm, CreateProductForm
 from .models import Product, ProductInstance
 from .helpers import set_product_availability, set_current_borrower
 
@@ -110,6 +110,24 @@ class ProductInstanceRedirect(RedirectView):
             returned=None
         )
         return reverse('product-return', args=[product_instance.id])
+
+
+class ProductCreate(CreateView):
+    model = Product
+    form_class = CreateProductForm
+    template_name = 'product/create_update_product.html'
+
+    def get_success_url(self):
+        return reverse('all-products')
+
+
+class ProductUpdate(UpdateView):
+    model = Product
+    form_class = CreateProductForm
+    template_name = 'product/create_update_product.html'
+
+    def get_success_url(self):
+        return reverse('all-products')
 
 
 
