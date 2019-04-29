@@ -1,0 +1,179 @@
+/* Product List */
+
+.product__wrapper {
+  border-bottom: solid 1px #eaeff7;
+}
+
+.product__details {
+  text-align: center;
+}
+
+.product__id {
+  display: block;
+}
+
+.product__image-wrapper {
+  padding: 0;
+  margin: 0;
+}
+
+.product__image {
+  width: 100%;
+  height: auto;
+}
+
+.product__admin {
+}
+
+.product__update {
+  font-size: 0.75rem;
+}
+
+
+@media (max-width: 1000px) {
+  .product__wrapper {
+    min-height: 250px;
+    padding-bottom: 5%;
+  }
+
+}
+
+/* Rental */
+.rental__wrapper {
+  display: flex;
+  justify-content: space-around;
+  box-sizing: border-box;
+  padding: 5% 0;
+  background-color: #113066;
+  color: white;
+}
+
+.rental__form-wrapper {
+  flex-basis: 30%;
+}
+
+.rental__info {
+  max-width: 100%;
+  flex-basis: 30%;
+}
+
+.rental__begin-text {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.rental__begin-date {
+  text-align: center;
+  width: 100%;
+  padding: 5%;
+  background-color: #3dc613;
+  font-size: 2rem;
+  border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+  .rental__wrapper {
+    flex-flow: column;
+  }
+  .rental__form-wrapper {
+    width: 100%;
+    text-align: center;
+  }
+  .rental__info {
+    margin-top: 10%;
+    padding: 0 5%;
+  }
+  .product__input-wrapper {
+    padding: 0 10%;
+  }
+}
+
+
+/* Return */
+.return__wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 5% 0;
+  background-color: #113066;
+  color: white;
+}
+
+.return__date-info {
+  text-align: center;
+  padding-bottom: 2rem;
+}
+
+.return__info {
+  color: black;
+  text-align: center;
+}
+
+.return__date-start {
+  font-size: 2rem;
+}
+
+.return__button {
+  padding: 0.5rem 4rem;
+  border-radius: 1px;
+}
+
+@media (max-width: 900px) {
+  .return__info {
+    margin-top: 10%;
+  }
+  .return__date-info {
+    padding: 0 1rem;
+  }
+  .return__submit {
+    text-align: center;
+  }
+  .return__form {
+    margin-top: 4rem;
+  }
+}
+
+/* Buttons */
+.button {
+  padding: 0.75rem;
+  overflow: hidden;
+  display: inline-block;
+  width: 150px;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+}
+
+.button:hover {
+  box-shadow: inset 0 0 0 50px rgba(0, 0, 0, 0.2);
+  color: inherit;
+  text-decoration: none;
+}
+
+.button--unavailable {
+  background-color: #5e5f60;
+  color: white;
+}
+
+.button--available {
+  background-color: #008362;
+  color: white;
+}
+
+.button--return {
+  background-color: #F6002C;
+  color: white;
+}
+
+.button--borrow {
+  background-color: #1a6fef;
+  color: white;
+}
+
+/* IE Work Arounds INCOMPLETE */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+     /* IE10+ CSS styles go here */
+
+}

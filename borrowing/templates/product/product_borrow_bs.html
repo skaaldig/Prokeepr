@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!--BEGIN RENTAL FORM-->
+<div class="row rental__wrapper">
+
+  <div class="rental__form-wrapper">
+    <h5>Select the date you will return the unit</h5>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group product__input-wrapper">
+      {{ form.rental_end|as_crispy_field }}
+      </div>
+      <button type="submit" class="button button--borrow">Borrow</button>
+    </form>
+  </div>
+
+  <div class="rental__info">
+    <h4 class="display-4 rental__begin-text">Your Rental Will Begin:</h4>
+    <div class="rental__begin-date">
+      {% now 'm/d/Y' %}
+    </div>
+  </div>
+
+</div>
+
+<!--BEGIN PRODUCT DETAILS-->
+<div class="row mt-5 product__wrapper">
+
+  <div class="col-3 product__image-wrapper">
+    {% if product.image %}
+    <img class="product__image" src="{{ product.image.url }}">
+    {% else %}
+    <img class="product__image" src="https://via.placeholder.com/400x321">
+    {% endif %}
+  </div>
+
+  <div class="col-5 product__details">
+    <h5 class="product__header">{{ product.manufacturer|title }} - {{ product.human_readable_name }}</h5>
+    <span class="product__id p-3"><b>Model:</b> {{ product.model_number }}</span>
+    <span class="product__id"><b>Serial:</b> {{ product.serial_number }} </span>
+  </div>
+
+  <div class="col-4 product__controls px-3">
+    <h5 class="product__status">{{ product.get_loan_status_display }}</h5>
+    <p>Location - {{ product.warehouse }} Warehouse</p>
+  </div>
+
+</div>
+{% endblock %}

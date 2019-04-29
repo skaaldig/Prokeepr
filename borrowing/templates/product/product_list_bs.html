@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for product in products %}
+<div class="row mb-3 product__wrapper">
+
+  <div class="col-3 product__image-wrapper">
+    {% if product.image %}
+    <img class="product__image" src="{{ product.image.url }}">
+    {% else %}
+    <img class="product__image" src="https://via.placeholder.com/400x321">
+    {% endif %}
+  </div>
+
+
+  <div class="col-5 product__details">
+    <h5 class="product__header">{{ product.manufacturer|title }} - {{ product.human_readable_name }}</h5>
+    <span class="product__id p-3"><b>Model:</b> {{ product.model_number }}</span>
+    <span class="product__id"><b>Serial:</b> {{ product.serial_number }} </span>
+  </div>
+
+
+  <div class="col-4 product__controls px-3">
+    <h5 class="product__status">{{ product.get_loan_status_display }}</h5>
+    <p>Location - {{ product.warehouse }} Warehouse</p>
+
+    {% if product.current_borrower %}
+    <p><b>Borrowed By:</b> {{ product.current_borrower.first_name }} {{ product.current_borrower.last_name }}</p>
+    {% endif %}
+
+    {% if product.loan_status == "a" %}
+    <a class="button button--available" href="{% url 'product-borrow' product.pk %}">Borrow Unit</a>
+
+    {% elif product.loan_status == "o" and user == product.current_borrower %}
+    <a class="button button--return" href="{% url 'return-redirect' product.pk %}">Return Unit</a>
+
+    {% else %}
+    <a class="button button--unavailable">Unavailable</a>
+    {% endif %}
+
+    {% if request.user.is_superuser %}
+    <div class="product__admin">
+        <a class="button button--return" href="{% url 'product-update' product.pk %}">Update</a>
+    </div>
+    {% endif %}
+
+  </div>
+
+</div>
+{% endfor %}
+
+<div class="row">
+  <div class="pagination__wrapper">
+      <span class="pagination__step-links">
+          {% if page_obj.has_previous %}
+              <a class="pagination__first" href="?page=1">&laquo; first</a>
+              <a class="pagination__previous" href="?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="pagination__current">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+
+          {% if page_obj.has_next %}
+              <a class="pagination__next" href="?page={{ page_obj.next_page_number }}">next</a>
+              <a class="pagination__last" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+  </div>
+</div>
+
+{% endblock %}
