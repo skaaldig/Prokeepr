@@ -4,36 +4,39 @@
 <div class="container">
   <div class="row">
 
-    <table class="data__table">
-      <thead class="data__head">
+    <table class=" table log__table">
+      <thead class="log__head">
         <tr class="data__column-names">
-          <th>Borrower</th>
-          <th>Name</th>
-          <th>Model</th>
-          <th>Borrowed</th>
-          <th>Rental End</th>
-          <th>Returned</th>
-          <th>Returned To</th>
+          <th scope="col">Borrower</th>
+          <th scope="col">Name</th>
+          <th scope="col">Model</th>
+          <th scope="col">Borrowed</th>
+          <th scope="col">Rental End</th>
+          <th scope="col">Returned</th>
+          <th scope="col">Returned To</th>
+          <th scope="col">Details</th>
         </tr>
       </thead>
       <tbody>
       {% for rental in rentals %}
       <tr class="data__row">
-        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">
+        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">
           {{ rental.borrower }}
         </td>
-        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.product.human_readable_name }}</td>
-        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.product.serial_number }}</td>
-        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.requested|date:"m/d/y" }}</td>
-        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.rental_end|date:"m/d/y" }}</td>
-        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.returned|date:"m/d/y" }}</td>
-        <td class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.returned_to }} Warehouse</td>
+        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.product.human_readable_name }}</td>
+        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.product.serial_number }}</td>
+        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.requested|date:"m/d/y" }}</td>
+        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.rental_end|date:"m/d/y" }}</td>
+        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.returned|date:"m/d/y" }}</td>
+        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.returned_to }} Warehouse</td>
+        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">
+          <a class="button button--available" href="#">Details</a>
+        </td>
+
       </tr>
 
-      <tr class="data__details {% cycle 'data__cell--grey' 'data__cell' %}">
-        <td class="data__serial" colspan="2">Serial: {{ rental.product.serial_number }}</td>
-        <td class="data__note-title">User Notes:</td>
-        <td class="data__note" colspan="4">{{ rental.return_note }}</td>
+      <tr class="log__details {% cycle 'data__cell--grey' 'data__cell' %}">
+        <td scope="row" class="data__serial" colspan="8">{{ rental.return_note }}</td>
       </tr>
 
 

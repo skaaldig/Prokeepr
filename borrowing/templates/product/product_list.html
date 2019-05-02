@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="product__outer">
 {% for product in products %}
-<div class="row mb-3 product__wrapper">
+<div class="row mb-3 mt-2 product__wrapper">
 
   <div class="col-3 product__image-wrapper">
     {% if product.image %}
@@ -14,13 +15,13 @@
 
 
   <div class="col-5 product__details">
-    <h5 class="product__header">{{ product.manufacturer|title }} - {{ product.human_readable_name }}</h5>
-    <span class="product__id p-3"><b>Model:</b> {{ product.model_number }}</span>
-    <span class="product__id"><b>Serial:</b> {{ product.serial_number }} </span>
+    <h5 class="display-4 product__header">{{ product.manufacturer|title }} - {{ product.human_readable_name|title }}</h5>
+    <span class="product__id">Model: {{ product.model_number }}</span>
+    <span class="product__id">Serial: {{ product.serial_number }} </span>
   </div>
 
 
-  <div class="col-4 product__controls px-3">
+  <div class="col-4 px-3 product__controls ">
     <h5 class="product__status">{{ product.get_loan_status_display }}</h5>
     <p>Location - {{ product.warehouse }} Warehouse</p>
 
@@ -40,7 +41,9 @@
 
     {% if request.user.is_superuser %}
     <div class="product__admin">
-        <a class="button button--return" href="{% url 'product-update' product.pk %}">Update</a>
+        <div><a class="button button--update" href="{% url 'product-update' product.pk %}">Update</a></div>
+        <div><a class="button button--delete" href="{% url 'product-delete' product.pk %}">Delete</a></div>
+
     </div>
     {% endif %}
 
@@ -69,4 +72,5 @@
   </div>
 </div>
 
+</div>
 {% endblock %}

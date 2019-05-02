@@ -38,9 +38,9 @@
   </div>
 
   <div class="col-5 product__details">
-    <h5 class="product__header">{{ product.manufacturer|title }} - {{ product.human_readable_name }}</h5>
-    <span class="product__id p-3"><b>Model:</b> {{ product.model_number }}</span>
-    <span class="product__id"><b>Serial:</b> {{ product.serial_number }} </span>
+    <h5 class="display-4 product__header">{{ product.manufacturer|title }} - {{ product.human_readable_name|title }}</h5>
+    <span class="product__id">Model: {{ product.model_number }}</span>
+    <span class="product__id">Serial: {{ product.serial_number }} </span>
   </div>
 
   <div class="col-4 product__controls px-3">

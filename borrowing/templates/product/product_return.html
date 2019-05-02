@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row return__wrapper">
+
+  <div class="return__form-wrapper">
+
+  <div class="return__date-info">
+    <h4 class="display-4 pb-4 return__date-start">You've had this unit since {{ rental.requested }}</h4>
+    <div class="rental__begin-date">That's {{ rental.requested|timesince:today }}!</div>
+  </div>
+
+    <form class="return__form" method="post">
+      {% csrf_token %}
+      <div class="form-group product__input-wrapper">
+      <h6>Which warehouse are you returning this to?</h6>
+      {{ form.returned_to|as_crispy_field }}
+      <h6>Any notes on return location or condition?</h6>
+      {{ form.return_note|as_crispy_field }}
+      </div>
+      <div class="return__submit">
+        <button type="submit" class="btn btn-primary return__button">Return</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<!--BEGIN PRODUCT DETAILS-->
+<div class="row mt-5 product__wrapper">
+
+  <div class="col-3 product__image-wrapper">
+    {% if rental.product.image %}
+    <img class="product__image" src="{{ rental.product.image.url }}">
+    {% else %}
+    <img class="product__image" src="https://via.placeholder.com/400x321">
+    {% endif %}
+  </div>
+
+  <div class="col-5 product__details">
+    <h5 class="display-4 product__header">{{ rental.product.manufacturer|title }} - {{ rental.product.human_readable_name|title }}</h5>
+    <span class="product__id">Model: {{ rental.product.model_number }}</span>
+    <span class="product__id">Serial: {{ rental.product.serial_number }} </span>
+  </div>
+
+  <div class="col-4 product__controls px-3">
+    <h5 class="product__status">{{ rental.product.get_loan_status_display }}</h5>
+    <p>Location - {{ rental.product.warehouse }} Warehouse</p>
+  </div>
+
+</div>
+
+
+
+
+{% endblock %}

@@ -1,11 +1,19 @@
+.content__container {
+  margin-top: 151px;
+}
+
 /* Product List */
+.product__outer {
+  margin-top: 170px;
+}
 
 .product__wrapper {
+  margin-top: 10px;
   border-bottom: solid 1px #eaeff7;
 }
 
 .product__details {
-  text-align: center;
+  text-align: left;
 }
 
 .product__id {
@@ -27,6 +35,14 @@
 
 .product__update {
   font-size: 0.75rem;
+}
+
+.product__controls {
+  text-align: center;
+}
+
+.product__header {
+  font-size: 2em;
 }
 
 
@@ -96,7 +112,7 @@
   justify-content: space-around;
   align-items: center;
   box-sizing: border-box;
-  padding: 5% 0;
+  padding: 2% 0 5% 0;
   background-color: #113066;
   color: white;
 }
@@ -170,6 +186,71 @@
 .button--borrow {
   background-color: #1a6fef;
   color: white;
+}
+
+.button--update {
+  background-color: #ffaa00;
+  color: black;
+}
+
+.button--delete {
+  background-color: black;
+  color: red;
+}
+
+/* Navbar */
+.navbar__nav {
+  padding: 55px;
+  border-bottom: solid 1px black;
+}
+
+
+/* Rental Log */
+.log__head {
+}
+
+.log__details {
+  background-color: #113066;
+  color: #43f20e;
+  display: none;
+}
+
+
+/* Create & Update Product */
+.update__wrapper {
+  background-color: #113066;
+  color: white;
+  width: 100%;
+  padding: 5% 20%;
+}
+
+.update__submit {
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .update__wrapper {
+    padding: 5% 4%;
+  }
+}
+
+
+/* Delete Product */
+.delete__form-wrapper {
+  text-align: center;
+  background-color: #113066;
+  color: white;
+  padding: 2rem 0;
+}
+
+.delete__header-text {
+  text-align: center;
+  color: white;
+}
+
+.delete__header {
+  background-color: #113066;
+  padding: 2rem 0;
 }
 
 /* IE Work Arounds INCOMPLETE */
