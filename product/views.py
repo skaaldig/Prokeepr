@@ -3,7 +3,7 @@ from datetime import date
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, reverse, get_object_or_404
 from django.views.generic import (
-    ListView, DetailView, CreateView, UpdateView, View, RedirectView
+    ListView, DetailView, CreateView, UpdateView, View, RedirectView, DeleteView
 )
 from django.db.models import Q
 
@@ -32,7 +32,7 @@ class ProductList(ListView):
         return queryset
 
 
-class ProductInstanceBorrow(LoginRequiredMixin, CreateView):
+class ProductInstanceBorrow(CreateView):
     model = ProductInstance
     template_name = 'product/product_borrow.html'
     fields = ('rental_end',)
@@ -60,16 +60,22 @@ class ProductInstanceBorrow(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductInstanceReturn(LoginRequiredMixin, UpdateView):
+class ProductInstanceReturn(UpdateView):
     model = ProductInstance
-    context_object_name = 'product'
-    template_name = 'product/return_form.html'
+    context_object_name = 'rental'
+    template_name = 'product/product_return.html'
     form_class = ReturnProductForm
+    today = date.today()
 
     def get_queryset(self):
         query = super(ProductInstanceReturn, self).get_queryset()
         query = query.filter(borrower=self.request.user)
         return query
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = self.today
+        return context
 
     def get_success_url(self):
         return reverse('all-products')
@@ -80,9 +86,7 @@ class ProductInstanceReturn(LoginRequiredMixin, UpdateView):
         )
         set_product_availability(related_product, "a")
         set_current_borrower(related_product, None)
-
-        today = date.today().strftime("%Y-%m-%d")
-        form.instance.returned = today
+        form.instance.returned = self.today.strftime("%Y-%m-%d")
         return super().form_valid(form)
 
 
@@ -115,7 +119,12 @@ class ProductInstanceRedirect(RedirectView):
 class ProductCreate(CreateView):
     model = Product
     form_class = CreateProductForm
-    template_name = 'product/create_update_product.html'
+    template_name = 'product/product_create_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['form_type'] = 'create'
+        return context
 
     def get_success_url(self):
         return reverse('all-products')
@@ -124,10 +133,21 @@ class ProductCreate(CreateView):
 class ProductUpdate(UpdateView):
     model = Product
     form_class = CreateProductForm
-    template_name = 'product/create_update_product.html'
+    template_name = 'product/product_create_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['form_type'] = 'update'
+        return context
 
     def get_success_url(self):
         return reverse('all-products')
 
 
+class ProductDelete(DeleteView):
+    model = Product
+    template_name = 'product/product_delete.html'
+    context_object_name = 'product'
 
+    def get_success_url(self):
+        return reverse('all-products')
