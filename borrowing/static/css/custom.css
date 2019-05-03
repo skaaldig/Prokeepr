@@ -245,12 +245,20 @@
 
 .delete__header-text {
   text-align: center;
-  color: white;
 }
 
 .delete__header {
-  background-color: #113066;
   padding: 2rem 0;
+}
+
+
+/* Empty Place Holder for No Products in List */
+.empty__wrapper {
+  text-align: center;
+}
+
+.empty__icon {
+  color: #1cefa2;
 }
 
 /* IE Work Arounds INCOMPLETE */

@@ -7,7 +7,7 @@ from django.views.generic import (
 )
 from django.db.models import Q
 
-from .forms import ReturnProductForm, CreateProductForm
+from .forms import ReturnProductForm, CreateProductForm, BorrowProductForm
 from .models import Product, ProductInstance
 from .helpers import set_product_availability, set_current_borrower
 
@@ -34,8 +34,8 @@ class ProductList(ListView):
 
 class ProductInstanceBorrow(CreateView):
     model = ProductInstance
+    form_class = BorrowProductForm
     template_name = 'product/product_borrow.html'
-    fields = ('rental_end',)
 
     def dispatch(self, request, *args, **kwargs):
         self.product = get_object_or_404(Product, pk=kwargs["pk"], loan_status="a")

@@ -11,8 +11,20 @@
     <form method="post">
       {% csrf_token %}
       <div class="form-group product__input-wrapper">
-      {{ form.rental_end|as_crispy_field }}
+        <div class="input-group date" id="id_rental_end" data-target-input="nearest">
+            {{ form.rental_end }}
+          <div class="input-group-append datetimepicker-input" data-target="#id_rental_end" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+          </div>
+        </div>
       </div>
+
+      {% if form.rental_end.errors %}
+      <div class="rental__errors">
+        <p>{{ form.rental_end.errors.as_text }}</p>
+      </div>
+      {% endif %}
+
       <button type="submit" class="button button--borrow">Borrow</button>
     </form>
   </div>
@@ -49,4 +61,16 @@
   </div>
 
 </div>
+
+<script>
+  $(function () {
+    $("#id_rental_end").datetimepicker({
+      format: 'L'
+    });
+  });
+</script>
+
+<script>
+  $
+</script>
 {% endblock %}

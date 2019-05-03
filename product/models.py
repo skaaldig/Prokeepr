@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.shortcuts import reverse
 from django.core.exceptions import ValidationError
@@ -34,7 +35,7 @@ class Product(models.Model):
 
     manufacturer = models.ForeignKey('Manufacturer', on_delete=models.CASCADE)
     warehouse = models.ForeignKey('warehouse.Warehouse', null=True, on_delete=models.CASCADE)
-    current_borrower = models.ForeignKey('users.User', blank=True, null=True, on_delete=models.CASCADE)
+    current_borr    ower = models.ForeignKey('users.User', blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.model_number
@@ -43,18 +44,20 @@ class Product(models.Model):
         return reverse('product-detail', args=[self.pk])
 
 
+def future_dates_only(date):
+    if date < datetime.date.today():
+        raise ValidationError("Rental End date cannot be in the past.")
 
 
 class ProductInstance(models.Model):
     requested = models.DateField(auto_now_add=True)
-    rental_end = models.DateField()
+    rental_end = models.DateField(validators=[future_dates_only])
     returned = models.DateField(blank=True, null=True)
     return_note = models.TextField(blank=True, null=True, help_text="Where you left the demo and any notes on condition")
-
+    
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     borrower = models.ForeignKey('users.User', blank=True, on_delete=models.CASCADE)
     returned_to = models.ForeignKey('warehouse.Warehouse', null=True, on_delete=models.CASCADE)
-
 
     def __str__(self):
         return f"User: {self.borrower} Date: {self.requested} - {self.rental_end} " \
