@@ -78,6 +78,7 @@ LOCAL_APPS = [
     "product",
     "warehouse",
     "manager",
+    "manufacturer",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

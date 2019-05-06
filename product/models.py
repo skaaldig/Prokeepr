@@ -17,13 +17,6 @@ def manufacturer_directory(instance, filename):
     return f'{instance.manufacturer}/{filename}'
 
 
-class Manufacturer(models.Model):
-    name = models.CharField(max_length=150)
-
-    def __str__(self):
-        return self.name
-
-
 class Product(models.Model):
     image = models.ImageField(upload_to=manufacturer_directory, null=True)
     model_number = models.CharField(max_length=255)
@@ -33,7 +26,7 @@ class Product(models.Model):
     bin_location = models.CharField(max_length=25)
     loan_status = models.CharField(max_length=1, choices=STATUS, default="a")
 
-    manufacturer = models.ForeignKey('Manufacturer', on_delete=models.CASCADE)
+    manufacturer = models.ForeignKey('manufacturer.Manufacturer', on_delete=models.CASCADE)
     warehouse = models.ForeignKey('warehouse.Warehouse', null=True, on_delete=models.CASCADE)
     current_borrower = models.ForeignKey('users.User', blank=True, null=True, on_delete=models.CASCADE)
 
@@ -63,5 +56,5 @@ class ProductInstance(models.Model):
         return f"User: {self.borrower} Date: {self.requested} - {self.rental_end} " \
                f"Product: {self.product.human_readable_name}"
 
-    def get_absoulte_url(self):
+    def get_absolute_url(self):
         return reverse('product-instance', args=[self.pk])
