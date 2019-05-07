@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+  <div class="update__wrapper">
+    {% if form_type == "create" %}
+    <h2 class="py-3">Create a New Warehouse</h2>
+    {% else %}
+    <h2 class="py-3">Update This Warehouse</h2>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" action="{% if from %}?next={{ from }}{% endif %}">
+      {% csrf_token %}
+      <div class="form-group">
+      {{ form.city|as_crispy_field }}
+      {{ form.state|as_crispy_field }}
+      {{ form.manager|as_crispy_field }}
+      </div>
+      <div class="update__submit">
+        {% if form_type == "update" %}
+        <button type="submit" class="button button--update">Update</button>
+        {% else %}
+        <button type="submit" class="button button--update">Create</button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+
+</div>
+
+{% if form.subject.errors %}
+    <ol>
+    {% for error in form.subject.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ol>
+{% endif %}
+{% endblock %}

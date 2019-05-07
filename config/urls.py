@@ -5,8 +5,10 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
+import product.views
+
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    path("", product.views.ProductList.as_view(), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
@@ -18,6 +20,8 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     path("products/", include("product.urls")),
     path("manager/", include("manager.urls")),
+    path("warehouse/", include("warehouse.urls")),
+    path("manufacturer/", include("manufacturer.urls")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -4,20 +4,50 @@
 {% block content %}
 <div class="row">
   <div class="update__wrapper">
-    {% if form_type == "update" %}
-    <h2 class="py-3">Update This Product</h2>
-    {% else %}
+    {% if form_type == "create" %}
     <h2 class="py-3">Create a New Product</h2>
+    {% else %}
+    <h2 class="py-3">Update This Product</h2>
     {% endif %}
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
+
+      {% if request.user.is_superuser %}
       <div class="form-group">
+          {{ form.manufacturer|as_crispy_field }}
+      </div>
+      <div class="form-group">
+          <div class="update__related">
+            <a class="update__related-icon" href="{% url 'manufacturer-create' %}?from={{ request.path|urlencode }}">
+              <i class="fas fa-plus-square fa-2x "></i>
+            </a>
+            <span class="update__related-text">New Manufacturer</span>
+          </div>
+      </div>
+
+      <div class="form-group">
+          {{ form.warehouse|as_crispy_field }}
+      </div>
+      <div class="form-group">
+          <div class="update__related">
+            <a class="update__related-icon" href="{% url 'warehouse-create' %}?from={{ request.path|urlencode }}">
+              <i class="fas fa-plus-square fa-2x "></i>
+            </a>
+            <span class="update__related-text">New Warehouse</span>
+          </div>
+      </div>
+      {% else %}
+      <div class="form-group">
+        {{ form.warehouse|as_crispy_field }}
+        {{ form.manufacturer|as_crispy_field }}
+      </div>
+      {% endif %}
+
+      <div class="form-group">
+      {{ form.bin_location|as_crispy_field }}
       {{ form.human_readable_name|as_crispy_field }}
-      {{ form.manufacturer|as_crispy_field }}
       {{ form.model_number|as_crispy_field }}
       {{ form.serial_number|as_crispy_field }}
-      {{ form.warehouse|as_crispy_field }}
-      {{ form.bin_location|as_crispy_field }}
       {{ form.image|as_crispy_field }}
       </div>
       <div class="update__submit">

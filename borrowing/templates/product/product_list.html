@@ -2,6 +2,8 @@
 
 {% block content %}
 <div class="product__outer">
+
+{% if products %}
 {% for product in products %}
 <div class="row mb-3 mt-2 product__wrapper">
 
@@ -72,5 +74,8 @@
   </div>
 </div>
 
+{% else %}
+{% include 'snippets/none_borrowed.html' %}
+{% endif %}
 </div>
 {% endblock %}

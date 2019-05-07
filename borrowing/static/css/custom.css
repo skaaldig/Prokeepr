@@ -228,6 +228,24 @@
   text-align: center;
 }
 
+.update__related {
+  display: inline-flex;
+  align-items: center;
+}
+
+.update__related-icon {
+  text-decoration: none;
+  color: white;
+}
+
+.update__related-icon:hover {
+  color: #3dc613;
+}
+
+.update__related-text {
+  padding: 0 0.75rem;
+}
+
 @media (max-width: 700px) {
   .update__wrapper {
     padding: 5% 4%;
@@ -258,7 +276,7 @@
 }
 
 .empty__icon {
-  color: #1cefa2;
+  color: #fc0748;
 }
 
 /* IE Work Arounds INCOMPLETE */
