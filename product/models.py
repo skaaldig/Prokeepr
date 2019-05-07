@@ -46,7 +46,7 @@ class ProductInstance(models.Model):
     requested = models.DateField(auto_now_add=True)
     rental_end = models.DateField(validators=[future_dates_only])
     returned = models.DateField(blank=True, null=True)
-    return_note = models.TextField(blank=True, null=True, help_text="Where you left the demo and any notes on condition")
+    return_note = models.TextField(blank=True, help_text="Where you left the demo and any notes on condition")
 
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     borrower = models.ForeignKey('users.User', blank=True, on_delete=models.CASCADE)
