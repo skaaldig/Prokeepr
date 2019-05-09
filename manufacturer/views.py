@@ -11,7 +11,7 @@ class ManufacuterCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['form_type'] = 'create',
+        context['form_type'] = 'create'
         context['from'] = self.request.GET.get('from')
         return context
 
