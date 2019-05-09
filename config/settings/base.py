@@ -6,8 +6,8 @@ import environ
 
 ROOT_DIR = (
     environ.Path(__file__) - 3
-)  # (borrowing/config/settings/base.py - 3 = borrowing/)
-APPS_DIR = ROOT_DIR.path("borrowing")
+)  # (prokeepr/config/settings/base.py - 3 = prokeepr/)
+APPS_DIR = ROOT_DIR.path("prokeepr")
 
 env = environ.Env()
 
@@ -74,7 +74,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
 ]
 LOCAL_APPS = [
-    "borrowing.users.apps.UsersAppConfig",
+    "prokeepr.users.apps.UsersAppConfig",
     "product",
     "warehouse",
     "manager",
@@ -86,7 +86,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "borrowing.contrib.sites.migrations"}
+MIGRATION_MODULES = {"sites": "prokeepr.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -235,9 +235,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = "borrowing.users.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "prokeepr.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = "borrowing.users.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "prokeepr.users.adapters.SocialAccountAdapter"
 
 
 # Your stuff...

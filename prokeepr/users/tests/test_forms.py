@@ -1,7 +1,7 @@
 import pytest
 
-from borrowing.users.forms import UserCreationForm
-from borrowing.users.tests.factories import UserFactory
+from prokeepr.users.forms import UserCreationForm
+from prokeepr.users.tests.factories import UserFactory
 
 pytestmark = pytest.mark.django_db
 

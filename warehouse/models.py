@@ -1,5 +1,4 @@
 from django.db import models
-from borrowing.users.models import User
 
 from .states import STATES
 

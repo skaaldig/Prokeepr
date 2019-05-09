@@ -10,20 +10,17 @@
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'all-products' %}">Products <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'borrowed' %}">Borrowed</a>
-      </li>
+      {% if request.user.is_authenticated %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Account
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="{% url 'users:detail' request.user %}">Account</a>
+          <a class="dropdown-item" href="{% url 'borrowed' %}">My Rentals</a>
         </div>
       </li>
+      {% endif %}
 
       {% if request.user.is_superuser %}
       <li class="nav-item dropdown">

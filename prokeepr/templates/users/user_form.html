@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="col-12">
+
+  <div class="userinfo__wrapper">
+    <div class="userinfo__title">
+      <h1 class="display-4">Your Name</h1>
+      <h5>We currently know you as {{ user.name }}</h5>
+    </div>
+
+    <div class="userinfo__form-wrapper">
+      <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <div class="userinfo__controls">
+          <button type="submit" class="button button--available">Update</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+
+
+
+</div>
+{% endblock %}

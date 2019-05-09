@@ -1,0 +1,35 @@
+{% extends 'account/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block inner %}
+<div class="col-12 login__container">
+  <div class="login__branding">
+    <div class="login__logo">
+      Prokeepr
+    </div>
+  </div>
+
+    <div class="login__form-wrapper">
+      <form class="login__form" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <div class="login__submit">
+          <button class="button button--available" type="submit">{% trans "Sign In" %}</button>
+        </div>
+        </form>
+    </div>
+  <div class="login__help">
+    <a class="secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Reset my Password?" %}</a>
+    <p>{% blocktrans %} Don't have an account?
+    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+  </div>
+</div>
+{% endblock %}
+
+

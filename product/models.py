@@ -3,8 +3,6 @@ from django.db import models
 from django.shortcuts import reverse
 from django.core.exceptions import ValidationError
 
-from borrowing.users.models import User
-from warehouse.models import Warehouse
 
 STATUS = (
     ('m', 'Maintenance'),

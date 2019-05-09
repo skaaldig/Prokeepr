@@ -1,6 +1,6 @@
 from django.urls import path
 
-from borrowing.users.views import (
+from prokeepr.users.views import (
     user_list_view,
     user_redirect_view,
     user_update_view,

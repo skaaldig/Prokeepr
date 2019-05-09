@@ -156,7 +156,7 @@
   padding: 0.75rem;
   overflow: hidden;
   display: inline-block;
-  width: 150px;
+  min-width: 150px;
   text-align: center;
   text-decoration: none;
   border: none;
@@ -268,6 +268,166 @@
 .delete__header {
   padding: 2rem 0;
 }
+
+
+/* login page */
+.login__container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.login__submit {
+  text-align: center;
+}
+
+.login__help {
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.login__branding {
+  text-align: center;
+  margin: 2rem 0;
+  width: 50%;
+}
+
+.login__logo {
+ background-color: #F6002C;
+ color: white;
+ font-size: 2.5rem;
+ padding: 2rem 3rem;
+}
+
+.login__form-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.login__form {
+  width: 50%;
+}
+
+@media (max-width: 800px) {
+  .login__form {
+    width: 100%;
+  }
+  .login__branding {
+    width: 100%;
+  }
+}
+
+/* Reset Password Form */
+.reset__submit {
+  text-align: center;
+}
+
+.reset__help {
+  padding: 2rem 0;
+}
+
+.reset__info {
+  margin-top: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.reset__header {
+  font-size: 4rem;
+}
+
+.reset__sub-header {
+  margin-top: 2rem;
+}
+
+.reset__wrapper {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.reset__form-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 800px) {
+  .reset__header {
+    font-size: 3rem;
+  }
+}
+
+
+/* User */
+.user__wrapper {
+  border: solid black 1px;
+  margin-top: 1rem;
+  padding: 2rem;
+}
+
+.user__info-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.user__info {
+  width: 50%;
+  text-align: center;
+}
+
+.user__info-edit {
+  width: 50%;
+  float: right;
+  text-align: center;
+}
+
+.user__title-wrapper {
+  text-align: center;
+}
+
+/* user info update */
+.userinfo__title {
+  text-align: center;
+}
+
+.userinfo__wrapper {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}
+
+.userinfo__title {
+  width: 100%;
+}
+
+.userinfo__form-wrapper {
+  width: 50%;
+  padding: 2rem 0;
+}
+
+.userinfo__controls {
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .userinfo__form-wrapper {
+    width: 100%;
+  }
+  .user__wrapper-outer {
+    padding: 0;
+  }
+}
+
+/* Alerts */
+.alert__message {
+  width: 100%;
+  position: absolute;
+}
+
+
 
 
 /* Empty Place Holder for No Products in List */
