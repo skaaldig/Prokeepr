@@ -51,10 +51,10 @@
       {{ form.image|as_crispy_field }}
       </div>
       <div class="update__submit">
-        {% if form_type == "update" %}
-        <button type="submit" class="button button--update">Update</button>
-        {% else %}
+        {% if form_type == "create" %}
         <button type="submit" class="button button--update">Create</button>
+        {% else %}
+        <button type="submit" class="button button--update">Update</button>
         {% endif %}
       </div>
     </form>
