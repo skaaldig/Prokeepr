@@ -4,14 +4,16 @@
 
 
 {% block inner %}
-<div class="col-12 login__container">
-  <div class="login__branding">
+<div class="row justify-content-md-center pt-5">
+  <div class="col-md-6 col-sm-12">
     <div class="login__logo">
       Prokeepr
     </div>
   </div>
+</div>
 
-    <div class="login__form-wrapper">
+<div class="row justify-content-md-center text-light">
+    <div class="col-md-6 col-sm-12">
       <form class="login__form" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form|crispy }}
@@ -19,12 +21,15 @@
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <div class="login__submit">
-          <button class="button button--available" type="submit">{% trans "Sign In" %}</button>
+        <div class="text-center">
+          <button class="button button--gold" type="submit">{% trans "Sign In" %}</button>
         </div>
         </form>
     </div>
-  <div class="login__help">
+</div>
+
+<div class="row text-light">
+  <div class="col text-center py-5">
     <a class="secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Reset my Password?" %}</a>
     <p>{% blocktrans %} Don't have an account?
     <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>

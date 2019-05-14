@@ -4,52 +4,44 @@
 {% block title %}User: {{ object.username }}{% endblock %}
 
 {% block content %}
-<div class="container">
-
-  <div class="row">
-    <div class="col-12 user__wrapper-outer">
-      <div class="user__title-wrapper">
-        <h2 class="display-4 user__title">Login & Security</h2>
-        <h5>You are currently logged in as {{ object.username }}.</h5>
-      </div>
-
-      <div class="user__wrapper">
-        {% if object.name %}
-        <div class="user__info-wrapper">
-          <div class="user__info">
-            <b>Name:</b> {{ object.name }}
-          </div>
-          <div class="user__info-edit">
-            <a class="button button--available" href="{% url 'users:update' %}">Edit</a>
-          </div>
-        {% endif %}
-        </div>
-
-        {% if object.email %}
-        <div class="user__info-wrapper">
-          <div class="user__info">
-            <b>Email:</b> {{ object.email }}
-          </div>
-          <div class="user__info-edit">
-            <a class="button button--available" href="{% url 'account_email' %}">Edit</a>
-          </div>
-        </div>
-        {% endif %}
-
-        <div class="user__info-wrapper">
-          <div class="user__info">
-            <b>Password:</b> ***************
-          </div>
-          <div class="user__info-edit">
-            <a class="button button--available" href="{% url 'account_reset_password' %}">Edit</a>
-          </div>
-        </div>
-
-      </div>
-
+ <div class="row pt-5">
+    <div class="col title">
+      <h2 class="display-4">Login & Security</h2>
+      <h5 class="title__header--gold">You are currently logged in as {{ object.username }}.</h5>
     </div>
+ </div>
+
+<div class="text-light">
+  <div class="row text-center pt-5">
+     {% if object.name %}
+        <div class="col-md-6 col-sm-12 pb-4">
+            <b>Name:</b> {{ object.name }}
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <a class="button button--gold" href="{% url 'users:update' %}">Edit</a>
+        </div>
+      {% endif %}
   </div>
 
+  <div class="row text-center pt-3">
+    {% if object.email %}
+      <div class="col-md-6 col-sm-6 pb-4">
+        <b>Email:</b> {{ object.email }}
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <a class="button button--gold" href="{% url 'account_email' %}">Edit</a>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="row text-center pt-3">
+      <div class="col-md-6 col-sm-12 pb-4">
+        <b>Password:</b> ***************
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <a class="button button--gold" href="{% url 'account_reset_password' %}">Edit</a>
+      </div>
+  </div>
 </div>
 {% endblock content %}
 

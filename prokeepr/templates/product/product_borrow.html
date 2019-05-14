@@ -4,13 +4,12 @@
 {% block content %}
 
 <!--BEGIN RENTAL FORM-->
-<div class="row rental__wrapper">
-
-  <div class="rental__form-wrapper">
+<div class="row">
+  <div class="col-md-6 col-sm-12 p-5 text-light">
     <h5>Select the date you will return the unit</h5>
     <form method="post">
       {% csrf_token %}
-      <div class="form-group product__input-wrapper">
+      <div class="form-group">
         <div class="input-group date" id="id_rental_end" data-target-input="nearest">
             {{ form.rental_end }}
           <div class="input-group-append datetimepicker-input" data-target="#id_rental_end" data-toggle="datetimepicker">
@@ -20,20 +19,23 @@
       </div>
 
       {% if form.rental_end.errors %}
-      <div class="rental__errors">
+      <div>
         <p>{{ form.rental_end.errors.as_text }}</p>
       </div>
       {% endif %}
-
-      <button type="submit" class="button button--borrow">Borrow</button>
+      <div class="text-center py-3">
+        <button type="submit" class="button button--gold">Borrow</button>
+      </div>
     </form>
   </div>
 
-  <div class="rental__info">
-    <h4 class="display-4 rental__begin-text">Your Rental Will Begin:</h4>
-    <div class="rental__begin-date">
+
+
+  <div class="col-md-6 col-sm-12 text-center p-5 text-light">
+    <h4 class="display-4">Your Rental Will Begin:</h4>
+    <h2 class="title__header--gold">
       {% now 'm/d/Y' %}
-    </div>
+    </h2>
   </div>
 
 </div>
@@ -41,7 +43,7 @@
 <!--BEGIN PRODUCT DETAILS-->
 <div class="row mt-5 product__wrapper">
 
-  <div class="col-3 product__image-wrapper">
+  <div class="col-md-4 col-sm-12 product__image-wrapper">
     {% if product.image %}
     <img class="product__image" src="{{ product.image.url }}">
     {% else %}
@@ -49,13 +51,13 @@
     {% endif %}
   </div>
 
-  <div class="col-5 product__details">
+  <div class="col-md-4 col-sm-12 product__details">
     <h5 class="display-4 product__header">{{ product.manufacturer|title }} - {{ product.human_readable_name|title }}</h5>
     <span class="product__id">Model: {{ product.model_number }}</span>
     <span class="product__id">Serial: {{ product.serial_number }} </span>
   </div>
 
-  <div class="col-4 product__controls px-3">
+  <div class="col-md-4 col-sm-12 product__controls px-3">
     <h5 class="product__status">{{ product.get_loan_status_display }}</h5>
     <p>Location - {{ product.warehouse }} Warehouse</p>
   </div>

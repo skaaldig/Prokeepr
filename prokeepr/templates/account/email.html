@@ -7,17 +7,17 @@
 {% block head_title %}{% trans "Account" %}{% endblock %}
 
 {% block inner %}
-<div class="col-12 email__outer">
-  <div class="email__title-wrapper">
+<div class="row pt-5">
+  <div class="col title">
     <h1 class="display-4">{% trans "E-mail Addresses" %}</h1>
+    <h5 class="title__header--gold">{% trans 'The following e-mail addresses are associated with your account:' %}</h5>
   </div>
+</div>
 
-  <div class="email__selector-wrapper">
-    <div class="email__selector">
+<div class="row pt-5 justify-content-md-center text-light text-center">
+    <div class="col-md-6 col-sm-12">
     {% if user.emailaddress_set.all %}
-    <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
-
-    <form action="{% url 'account_email' %}" class="email_list" method="post">
+    <form action="{% url 'account_email' %}" class="email__form" method="post">
       {% csrf_token %}
       <fieldset class="blockLabels">
 
@@ -35,47 +35,44 @@
             {% endif %}
             {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
           </label>
+          <div class="form-group">
+            <button class="mt-3 button button--gold" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
+            <button class="mt-3 button button--tomato" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
+            <button class="mt-3 button button--delete" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+          </div>
         </div>
         {% endfor %}
-
-        <div class="form-group">
-              <button class="button button--available" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
-              <button class="button button--update" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
-              <button class="button button--return" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
-        </div>
-
       </fieldset>
     </form>
+
     </div>
-  </div>
+</div>
 
-
-  {% else %}
-  <div class="email__selector-wrapper">
+{% else %}
+<div class="row text-light">
+  <div class="col">
       <p><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}</p>
           <h2>{% trans "Add E-mail Address" %}</h2>
 
           <form method="post" action="{% url 'account_email' %}" class="add_email">
               {% csrf_token %}
               {{ form|crispy }}
-              <button class="btn btn-primary" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+              <button class="button button--update" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
           </form>
     </div>
+</div>
+{% endif %}
 
-  {% endif %}
-
-  <div class="email__add-wrapper">
-    <div class="email__add-form">
-      <h2>{% trans "Add an Alternate E-mail Address" %}</h2>
+<div class="row pt-5 justify-content-md-center text-light">
+    <div class="col-md-6 col-sm-12">
+      <h2 class="text-center py-3">{% trans "Add an Alternate E-mail Address" %}</h2>
 
       <form method="post" action="{% url 'account_email' %}" class="add_email">
           {% csrf_token %}
           {{ form|crispy }}
-          <button class="btn btn-primary" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+          <button class="button button--gold" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
       </form>
     </div>
-  </div>
-
 </div>
 {% endblock %}
 
