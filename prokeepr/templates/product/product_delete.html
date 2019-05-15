@@ -2,14 +2,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="row">
+<div class="row pt-md-5 pt-sm-1">
   <div class="col-12 delete__header">
       <h1 class="display-3 delete__header-text">Selected Product</h1>
   </div>
 </div>
 
-<div class="row mb-2 product__wrapper">
-  <div class="col-3 product__image-wrapper">
+<div class="row product__wrapper">
+  <div class="col-md-4 col-sm-12 product__image-wrapper">
     {% if product.image %}
     <img class="product__image" src="{{ product.image.url }}">
     {% else %}
@@ -17,13 +17,13 @@
     {% endif %}
   </div>
 
-  <div class="col-5 product__details">
+  <div class="col-md-4 col-sm-12 product__details">
     <h5 class="display-4 product__header">{{ product.manufacturer|title }} - {{ product.human_readable_name|title }}</h5>
     <span class="product__id">Model: {{ product.model_number }}</span>
     <span class="product__id">Serial: {{ product.serial_number }} </span>
   </div>
 
-  <div class="col-4 product__controls px-3">
+  <div class="col-md-4 col-sm-12 product__controls px-3">
     <h5 class="product__status">{{ product.get_loan_status_display }}</h5>
     <p>Location - {{ product.warehouse }} Warehouse</p>
   </div>

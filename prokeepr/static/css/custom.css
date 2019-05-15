@@ -1,19 +1,29 @@
 a {
-  color: #08a3cf;
+  color: #40bcd8;
 }
 
 .content__container {
-  margin-top: 151px;
+  margin-top: 175px;
 }
 
 body {
   background-color: #003f51;
 }
 
-/* Product List */
-.product__outer {
+.title {
+  text-align: center;
+  color: white;
 }
 
+.bg--gold {
+  background-color: #f39237;
+}
+
+.text--gold {
+  color: #f39237;
+}
+
+/* Product List */
 .product__wrapper {
   min-height: 275px;
   margin-top: 1px;
@@ -143,20 +153,7 @@ body {
 }
 
 
-/* Rental Log */
-
-
 /* Create & Update Product */
-.update__wrapper {
-  color: white;
-  width: 100%;
-  padding: 5% 20%;
-}
-
-.update__submit {
-  text-align: center;
-}
-
 .update__related {
   display: inline-flex;
   align-items: center;
@@ -172,13 +169,7 @@ body {
 }
 
 .update__related-text {
-  padding: 0 0.75rem;
-}
-
-@media (max-width: 700px) {
-  .update__wrapper {
-    padding: 5% 4%;
-  }
+  padding-left: 0.75rem;
 }
 
 
@@ -202,16 +193,10 @@ body {
 /* login page */
 .login__logo {
  text-align: center;
- background-color: #F6002C;
+ background-color: #d63230;
  color: white;
  font-size: 2.5rem;
  padding: 2rem 3rem;
-}
-
-
-/* Reset Password Form */
-.title__header--gold {
-  color: #f39237;
 }
 
 /* Alerts */
@@ -220,21 +205,10 @@ body {
   bottom: 0%;
   width: 100%;
   text-align: center;
-  background-color: #008362;
+  background-color: #08a3cf;
   color: white;
   padding: 1rem 0;
   z-index: 10;
-}
-
-/* Generic Messages */
-.messaging__wrapper {
-  text-align: center;
-  color: white;
-}
-
-.messaging__sub-header {
-  color: #f39237;
-  padding: 2rem;
 }
 
 /* Empty Place Holder for No Products in List */
@@ -243,7 +217,8 @@ body {
 }
 
 .empty__icon {
-  color: #fc0748;
+  color: #f39237;
+  padding: 2rem 0;
 }
 
 /* IE Work Arounds INCOMPLETE */
@@ -252,7 +227,19 @@ body {
 
 }
 
-.title {
-  text-align: center;
-  color: white;
+.has-search .form-control {
+  padding-left: 2.375rem;
 }
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+

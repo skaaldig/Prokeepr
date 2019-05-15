@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="product__outer">
+{% include 'snippets/search_bar.html' %}
 
 {% if products %}
 {% for product in products %}
 <div class="row product__wrapper">
-
   <div class="col-md-4 col-sm-12 product__image-wrapper">
     {% if product.image %}
     <img class="product__image" src="{{ product.image.url }}">
@@ -73,9 +72,7 @@
       </span>
   </div>
 </div>
-
 {% else %}
 {% include 'snippets/none_borrowed.html' %}
 {% endif %}
-</div>
 {% endblock %}

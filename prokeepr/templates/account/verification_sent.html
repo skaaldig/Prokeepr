@@ -5,15 +5,15 @@
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
 {% block inner %}
-<div class="col-12 messaging__outer">
-    <div class="messaging__title">
-      <h1 class="display-4">{% trans "Verify Your E-mail Address" %}</h1>
-      <div class="messaging__instruction">
-        <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process.
-        Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
-        <i class="fas fa-paper-plane fa-4x messaging__icon"></i>
-      </div>
+<div class="row pt-md-5 pt-sm-1">
+  <div class="col title">
+    <h1 class="display-4 pb-4">{% trans "Verify Your E-mail Address" %}</h1>
+    <h5 class="text--gold">{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process.
+    Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</h5>
+    <div class="text-center">
+      <i class="fas fa-paper-plane fa-4x messaging__icon pt-5"></i>
     </div>
+  </div>
 </div>
 {% endblock %}
 

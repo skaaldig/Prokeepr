@@ -4,15 +4,15 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-<div class="row py-5">
+<div class="row pt-md-5 pt-sm-1">
   <div class="col title">
-    <h1 class="display-4">Your Name</h1>
-    <h5 class="title__header--gold">We currently know you as {{ user.name }}</h5>
+    <h1 class="display-4 pb-3">Your Name</h1>
+    <h5 class="text--gold">We currently know you as {{ user.name }}</h5>
   </div>
 </div>
 
-<div class="row justify-content-md-center text-light">
-    <div class="col-6">
+<div class="row justify-content-md-center text-light pt-4">
+    <div class="col-md-6 col-sm-12">
       <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
         {% csrf_token %}
         {{ form|crispy }}

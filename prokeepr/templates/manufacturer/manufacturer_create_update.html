@@ -2,28 +2,32 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="row">
-  <div class="update__wrapper">
+<div class="row pt-5">
+  <div class="col title">
     {% if form_type == "create" %}
-    <h2 class="py-3">Create a New Manufacturer</h2>
+    <h2 class="display-4">Create a New Manufacturer</h2>
     {% else %}
-    <h2 class="py-3">Update This Manufacturer</h2>
+    <h2 class="display-4">Update This Manufacturer</h2>
     {% endif %}
+  </div>
+</div>
+
+<div class="row justify-content-md-center pt-4 text-light">
+  <div class="col-md-6 col-sm-12">
     <form method="post" enctype="multipart/form-data" action="{% if from %}?next={{ from }}{% endif %}">
       {% csrf_token %}
       <div class="form-group">
       {{ form.name|as_crispy_field }}
       </div>
-      <div class="update__submit">
+      <div class="text-center pt-5">
         {% if form_type == "create" %}
-        <button type="submit" class="button button--update">Create</button>
+        <button type="submit" class="button button--gold">Create</button>
         {% else %}
-        <button type="submit" class="button button--update">Update</button>
+        <button type="submit" class="button button--gold">Update</button>
         {% endif %}
       </div>
     </form>
   </div>
-
 </div>
 
 {% if form.subject.errors %}
