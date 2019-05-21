@@ -1,22 +1,23 @@
 from datetime import date
 
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, reverse, get_object_or_404
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, View, RedirectView, DeleteView
 )
 from django.db.models import Q
+from django.http import HttpResponseForbidden
 
 from .forms import ReturnProductForm, CreateProductForm, BorrowProductForm
 from .models import Product, ProductInstance
 from .helpers import set_product_availability, set_current_borrower
 
 
-class ProductList(ListView):
+class ProductList(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'product/product_list.html'
     context_object_name = 'products'
-    paginate_by = 25
+    paginate_by = 2
     ordering = ["-human_readable_name"]
 
     def get_queryset(self):
@@ -32,7 +33,7 @@ class ProductList(ListView):
         return queryset
 
 
-class ProductInstanceBorrow(CreateView):
+class ProductInstanceBorrow(LoginRequiredMixin, CreateView):
     model = ProductInstance
     form_class = BorrowProductForm
     template_name = 'product/product_borrow.html'
@@ -60,7 +61,7 @@ class ProductInstanceBorrow(CreateView):
         return super().form_valid(form)
 
 
-class ProductInstanceReturn(UpdateView):
+class ProductInstanceReturn(LoginRequiredMixin, UpdateView):
     model = ProductInstance
     context_object_name = 'rental'
     template_name = 'product/product_return.html'
@@ -100,13 +101,21 @@ class BorrowedProductList(LoginRequiredMixin, ListView):
         borrowed_products = queryset.filter(
             current_borrower=self.request.user
         )
+
+        search = self.request.GET.get("q")
+        if search:
+            return borrowed_products.filter(
+                Q(manufacturer__name__icontains=search) |
+                Q(human_readable_name__icontains=search)  |
+                Q(model_number__icontains=search)
+            )
         return borrowed_products
 
 
-class ProductInstanceRedirect(RedirectView):
+class ProductInstanceRedirect(LoginRequiredMixin, RedirectView):
     permanent = False
 
-    def get_redirect_url(self, *args, **kwargs):
+    def get_redirect_url(self, **kwargs):
         product = get_object_or_404(Product, pk=kwargs['pk'], loan_status="o")
         product_instance = get_object_or_404(
             ProductInstance, product=product,
@@ -116,12 +125,14 @@ class ProductInstanceRedirect(RedirectView):
         return reverse('product-return', args=[product_instance.id])
 
 
-class ProductCreate(CreateView):
+class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = CreateProductForm
     template_name = 'product/product_create_update.html'
+    permission_required = ('product.can_add_product',)
+    raise_exception = True
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self):
         context = super().get_context_data()
         context['form_type'] = 'create'
         return context
@@ -130,19 +141,23 @@ class ProductCreate(CreateView):
         return reverse('all-products')
 
 
-class ProductUpdate(UpdateView):
+class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = CreateProductForm
     template_name = 'product/product_create_update.html'
+    permission_required = ('product.can_change_product',)
+    raise_exception = True
 
     def get_success_url(self):
         return reverse('all-products')
 
 
-class ProductDelete(DeleteView):
+class ProductDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
     template_name = 'product/product_delete.html'
     context_object_name = 'product'
+    permission_required = ('product.can_delete_product',)
+    raise_exception = True
 
     def get_success_url(self):
         return reverse('all-products')

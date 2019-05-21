@@ -13,14 +13,12 @@
 
 <div class="text-light">
   <div class="row text-center pt-5">
-     {% if object.name %}
         <div class="col-md-6 col-sm-12 pb-4">
-            <b>Name:</b> {{ object.name }}
+          <b>Name:</b>{% if object.name %} {{ object.name }}{% else %} No Name Set{% endif %}
         </div>
         <div class="col-md-6 col-sm-12">
           <a class="button button--gold" href="{% url 'users:update' %}">Edit</a>
         </div>
-      {% endif %}
   </div>
 
   <div class="row text-center pt-3">

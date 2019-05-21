@@ -16,11 +16,12 @@
       <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
         {% csrf_token %}
         {{ form|crispy }}
-      </form>
-
       <div class="text-center py-5">
         <button type="submit" class="button button--gold">Update</button>
       </div>
+      </form>
+
+
     </div>
 </div>
 {% endblock %}

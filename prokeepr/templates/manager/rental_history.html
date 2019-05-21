@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
   <div class="row">
-
-    <table class=" table log__table">
-      <thead class="log__head">
-        <tr class="data__column-names">
+  <div class="table-responsive-md">
+    <table class="table text-light">
+      <caption>Log of products rented</caption>
+      <thead>
+        <tr>
           <th scope="col">Borrower</th>
           <th scope="col">Name</th>
           <th scope="col">Model</th>
@@ -14,39 +14,36 @@
           <th scope="col">Rental End</th>
           <th scope="col">Returned</th>
           <th scope="col">Returned To</th>
-          <th scope="col">Details</th>
+          <th scope="col">Notes</th>
         </tr>
       </thead>
       <tbody>
       {% for rental in rentals %}
-      <tr class="data__row">
-        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">
+      <!-- Modal -->
+      {% include 'manager/rental_history_modal.html' %}
+
+      <tr>
+        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">
           {{ rental.borrower }}
         </td>
-        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.product.human_readable_name }}</td>
-        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.product.serial_number }}</td>
-        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.requested|date:"m/d/y" }}</td>
-        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.rental_end|date:"m/d/y" }}</td>
-        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.returned|date:"m/d/y" }}</td>
-        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">{{ rental.returned_to }} Warehouse</td>
-        <td scope="row" class="{% cycle 'data__cell data__cell--grey' 'data__cell'%}">
-          <a class="button button--available" href="#">Details</a>
+        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.product.human_readable_name }}</td>
+        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.product.serial_number }}</td>
+        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.requested|date:"m/d/y" }}</td>
+        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.rental_end|date:"m/d/y" }}</td>
+        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.returned|date:"m/d/y" }}</td>
+        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.returned_to }} Warehouse</td>
+        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">
+          <button class="button button--sea" data-toggle="modal" data-target="#loanlog__modal{{ forloop.counter }}">Notes</button>
         </td>
 
       </tr>
-
-      <div class="log__details {% cycle 'data__cell--grey' 'data__cell' %}">
-        <td scope="row" class="data__serial" colspan="8">{{ rental.return_note }}</td>
-      </div>
-
-
       {% endfor %}
       </tbody>
 
 
     </table>
-
-    <div class="pagination">
+</div>
+    <div class="paginationz">
       <span class="pagination__step-links">
           {% if page_obj.has_previous %}
               <a class="pagination__first" href="?page=1">&laquo; first</a>
@@ -65,7 +62,6 @@
     </div>
 
   </div>
-</div>
 
 
 

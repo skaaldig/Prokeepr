@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'snippets/infinite_scroll_window.html' %}
 
-{% block content %}
+{% block infinite-content %}
 {% include 'snippets/search_bar.html' %}
 
 {% if products %}
 {% for product in products %}
-<div class="row product__wrapper">
+<div class="row infinite-item product__wrapper">
   <div class="col-md-4 col-sm-12 product__image-wrapper">
     {% if product.image %}
     <img class="product__image" src="{{ product.image.url }}">
@@ -14,13 +14,11 @@
     {% endif %}
   </div>
 
-
   <div class="col-md-5 col-sm-12 product__details">
     <h5 class="display-4 product__header">{{ product.manufacturer|title }} - {{ product.human_readable_name|title }}</h5>
     <span class="product__id">Model: {{ product.model_number }}</span>
     <span class="product__id">Serial: {{ product.serial_number }} </span>
   </div>
-
 
   <div class="col-md-3 col-sm-12 px-3 product__controls ">
     <h5 class="product__status">{{ product.get_loan_status_display }}</h5>
@@ -53,26 +51,8 @@
 </div>
 {% endfor %}
 
-<div class="row">
-  <div class="pagination__wrapper">
-      <span class="pagination__step-links">
-          {% if page_obj.has_previous %}
-              <a class="pagination__first" href="?page=1">&laquo; first</a>
-              <a class="pagination__previous" href="?page={{ page_obj.previous_page_number }}">previous</a>
-          {% endif %}
-
-          <span class="pagination__current">
-              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-          </span>
-
-          {% if page_obj.has_next %}
-              <a class="pagination__next" href="?page={{ page_obj.next_page_number }}">next</a>
-              <a class="pagination__last" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-          {% endif %}
-      </span>
-  </div>
-</div>
 {% else %}
 {% include 'snippets/none_borrowed.html' %}
 {% endif %}
 {% endblock %}
+

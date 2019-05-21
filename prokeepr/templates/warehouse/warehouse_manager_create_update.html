@@ -4,11 +4,8 @@
 {% block content %}
 <div class="row pt-5">
   <div class="col title">
-    {% if form_type == "create" %}
-    <h2 class="display-4">Create a New Warehouse</h2>
-    {% else %}
-    <h2 class="display-4">Update This Warehouse</h2>
-    {% endif %}
+    <h2 class="display-4">Select a Warehouse Manager</h2>
+    <h5 class="text--gold">Give user warehouse manager permissions</h5>
   </div>
 </div>
 
@@ -19,21 +16,6 @@
       <div class="form-group">
       {{ form.manager|as_crispy_field }}
       </div>
-
-      <div class="form-group">
-          <div class="update__related">
-            <a class="update__related-icon" href="{% url 'manager-create' %}?from={{ request.path|urlencode }}">
-              <i class="fas fa-plus-square fa-2x "></i>
-            </a>
-            <span class="update__related-text">New Warehouse Manager</span>
-          </div>
-      </div>
-
-      <div class="form-group">
-      {{ form.city|as_crispy_field }}
-      {{ form.state|as_crispy_field }}
-      </div>
-
       <div class="text-center pt-5">
         {% if form_type == "update" %}
         <button type="submit" class="button button--gold">Update</button>
@@ -44,7 +26,6 @@
     </form>
   </div>
 </div>
-
 
 {% if form.subject.errors %}
     <ol>
