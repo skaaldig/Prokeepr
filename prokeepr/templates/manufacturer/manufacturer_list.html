@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row pt-md-5 pt-sm-1">
+  <div class="col title pb-5">
+    <h1 class="display-4">Manufacturers</h1>
+  </div>
+</div>
+
+{% for manufacturer in manufacturers %}
+<div class="row {% cycle 'bg-dark' 'bg-light text-dark'%} py-2">
+  <div class="col col-md-7 text-center"><h5 class="{% cycle 'text-light' 'text-dark'%}">{{ manufacturer.name }}</h5></div>
+  <div class="col col-md-5">
+    <div class="row justify-content-center">
+      <div class="pr-1"><a class="button button--sea" href="{% url 'manufacturer-update' manufacturer.pk %}">Update</a></div>
+      <div class="pl-1"><a class="button button--delete" href="{% url 'manufacturer-delete' manufacturer.pk %}">Delete</a></div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
