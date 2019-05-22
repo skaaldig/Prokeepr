@@ -6,7 +6,7 @@ from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, View, RedirectView, DeleteView
 )
 from django.db.models import Q
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 
 from .forms import ReturnProductForm, CreateProductForm, BorrowProductForm
 from .models import Product, ProductInstance
@@ -79,7 +79,7 @@ class ProductInstanceReturn(LoginRequiredMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse('all-products')
+        return HttpResponseRedirect('all-products')
 
     def form_valid(self, form):
         related_product = Product.objects.get(
@@ -129,7 +129,7 @@ class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = CreateProductForm
     template_name = 'product/product_create_update.html'
-    permission_required = ('product.can_add_product',)
+    permission_required = ('product.add_product',)
     raise_exception = True
 
     def get_context_data(self):
@@ -145,7 +145,7 @@ class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = CreateProductForm
     template_name = 'product/product_create_update.html'
-    permission_required = ('product.can_change_product',)
+    permission_required = ('product.change_product',)
     raise_exception = True
 
     def get_success_url(self):
@@ -156,7 +156,7 @@ class ProductDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
     template_name = 'product/product_delete.html'
     context_object_name = 'product'
-    permission_required = ('product.can_delete_product',)
+    permission_required = ('product.delete_product',)
     raise_exception = True
 
     def get_success_url(self):

@@ -9,7 +9,7 @@ class ManufacuterCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     model = Manufacturer
     fields = '__all__'
     template_name = 'manufacturer/manufacturer_create_update.html'
-    permission_required = ('manufacturer.can_add_manufacturer',)
+    permission_required = ('manufacturer.add_manufacturer',)
     raise_exception = True
 
 
@@ -31,7 +31,7 @@ class ManufacturerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
     model = Manufacturer
     fields = '__all__'
     template_name = 'manufacturer/manufacturer_create_update.html'
-    permission_required = ('manufacturer.can_change_manufacturer',)
+    permission_required = ('manufacturer.change_manufacturer',)
     raise_exception = True
 
 
@@ -39,7 +39,7 @@ class ManufacturerDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView
     model = Manufacturer
     template_name = 'manufacturer/manufacturer_delete.html'
     context_object_name = 'manufacturer'
-    permission_required = ('manufacturer.can_delete_manufacturer',)
+    permission_required = ('manufacturer.delete_manufacturer',)
     raise_exception = True
 
 
@@ -48,8 +48,8 @@ class ManufacturerList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'manufacturer/manufacturer_list.html'
     context_object_name = 'manufacturers'
     permission_required = (
-        'manufacturer.can_delete_manufacturer',
-        'manufacturer.can_add_manufacturer',
-        'manufacturer.can_change_manufacturer'
+        'manufacturer.delete_manufacturer',
+        'manufacturer.add_manufacturer',
+        'manufacturer.change_manufacturer'
     )
     raise_exception = True

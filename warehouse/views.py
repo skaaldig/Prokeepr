@@ -9,7 +9,7 @@ class WarehouseCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Warehouse
     fields = '__all__'
     template_name = 'warehouse/warehouse_create_update.html'
-    permission_required = ('warehouse.can_add_warehouse',)
+    permission_required = ('warehouse.add_warehouse',)
     raise_exception = True
 
     def get_context_data(self):
@@ -30,7 +30,7 @@ class WarehouseUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Warehouse
     fields = '__all__'
     template_name = 'warehouse/warehouse_create_update.html'
-    permission_required = ('warehouse.can_change_warehouse',)
+    permission_required = ('warehouse.change_warehouse',)
     raise_exception = True
 
 
@@ -38,7 +38,7 @@ class WarehouseManagerCreate(LoginRequiredMixin, PermissionRequiredMixin, Create
     model = WarehouseManager
     fields = '__all__'
     template_name = 'warehouse/warehouse_manager_create_update.html'
-    permission_required = ('warehouse.can_add_warehouse_manager',)
+    permission_required = ('warehouse.add_warehouse_manager',)
     raise_exception = True
 
     def get_context_data(self):
