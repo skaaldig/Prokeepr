@@ -1,5 +1,5 @@
 from django.shortcuts import reverse
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from .models import Warehouse, WarehouseManager
@@ -31,6 +31,22 @@ class WarehouseUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     fields = '__all__'
     template_name = 'warehouse/warehouse_create_update.html'
     permission_required = ('warehouse.change_warehouse',)
+    raise_exception = True
+
+
+class WarehouseDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Warehouse
+    template_name = 'warehouse/warehouse_delete.html'
+    context_object_name = 'warehouse'
+    permission_required = ('warehouse.delete_product',)
+    raise_exception = True
+
+
+class WarehouseList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model = Warehouse
+    template_name = 'warehouse/warehouse_list.html'
+    context_object_name = 'warehouses'
+    permission_required = ('warehouse.delete_product',)
     raise_exception = True
 
 

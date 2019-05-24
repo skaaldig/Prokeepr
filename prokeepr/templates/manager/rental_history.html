@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="row bg--dark-blue">
+  <div class="col title">
+    <h1 class="display-4 p-md-5 p-sm-3">Rental History</h1>
+  </div>
+</div>
+
   <div class="row">
-  <div class="table-responsive-md">
-    <table class="table text-light">
+  <div class="table-responsive-md ">
+    <table class="table table-dark bg--dark-blue">
       <caption>Log of products rented</caption>
       <thead>
         <tr>
@@ -23,16 +29,16 @@
       {% include 'manager/rental_history_modal.html' %}
 
       <tr class="infinite-item">
-        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">
+        <td scope="row">
           {{ rental.borrower }}
         </td>
-        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.product.human_readable_name }}</td>
-        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.product.serial_number }}</td>
-        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.requested|date:"m/d/y" }}</td>
-        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.rental_end|date:"m/d/y" }}</td>
-        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.returned|date:"m/d/y" }}</td>
-        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">{{ rental.returned_to }} Warehouse</td>
-        <td scope="row" class="{% cycle 'bg-dark' 'bg-light text-dark'%}">
+        <td scope="row">{{ rental.product.human_readable_name }}</td>
+        <td scope="row">{{ rental.product.serial_number }}</td>
+        <td scope="row">{{ rental.requested|date:"m/d/y" }}</td>
+        <td scope="row">{{ rental.rental_end|date:"m/d/y" }}</td>
+        <td scope="row">{{ rental.returned|date:"m/d/y" }}</td>
+        <td scope="row">{{ rental.returned_to }} Warehouse</td>
+        <td scope="row">
           <button class="button button--sea" data-toggle="modal" data-target="#loanlog__modal{{ forloop.counter }}">Notes</button>
         </td>
 

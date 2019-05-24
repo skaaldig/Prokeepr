@@ -1,23 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="row pt-md-5 pt-sm-1">
-  <div class="col title pb-5">
-    <h1 class="display-4">Manufacturers</h1>
+<div class="row bg--dark-blue">
+  <div class="col title">
+    <h1 class="display-4  p-md-5 p-sm-3">Manufacturers</h1>
   </div>
 </div>
 
-{% for manufacturer in manufacturers %}
-<div class="row {% cycle 'bg-dark' 'bg-light text-dark'%} py-2">
-  <div class="col col-md-7 text-center"><h5 class="{% cycle 'text-light' 'text-dark'%}">{{ manufacturer.name }}</h5></div>
-  <div class="col col-md-5">
-    <div class="row justify-content-center">
-      <div class="pr-1"><a class="button button--sea" href="{% url 'manufacturer-update' manufacturer.pk %}">Update</a></div>
-      <div class="pl-1"><a class="button button--delete" href="{% url 'manufacturer-delete' manufacturer.pk %}">Delete</a></div>
-    </div>
-  </div>
+<div class="row">
+  <table class="table table-dark bg--dark-blue">
+    <caption>List of manufacturers</caption>
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody class="infinite-container">
+    {% for manufacturer in manufacturers %}
+
+    <tr>
+      <td scope="row">
+        {{ manufacturer.name }}
+      </td>
+      <td scope="row" class="text-right">
+        {% if perms.manufacturer.delete_manufacturer %}
+        <a class="button button--sea" href="{% url 'manufacturer-update' manufacturer.pk %}">Update</a>
+        <a class="button button--delete" href="{% url 'manufacturer-delete' manufacturer.pk %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 </div>
-{% endfor %}
 
 {% endblock %}

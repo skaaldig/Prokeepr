@@ -12,15 +12,15 @@
   </div>
 </div>
 
-<div class="row justify-content-md-center text-light">
+<div class="row justify-content-md-center text-light pb-5">
   <div class="col-md-6 col-sm-12">
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
 
-      {% if request.user.is_superuser %}
       <div class="form-group">
           {{ form.manufacturer|as_crispy_field }}
       </div>
+      {% if perms.manufacturer.add_manufacturer %}
       <div class="form-group">
           <div class="update__related">
             <a class="update__related-icon" href="{% url 'manufacturer-create' %}?from={{ request.path|urlencode }}">
@@ -29,10 +29,13 @@
             <span class="update__related-text">New Manufacturer</span>
           </div>
       </div>
+      {% endif %}
 
       <div class="form-group">
           {{ form.warehouse|as_crispy_field }}
       </div>
+
+      {% if perms.warehouse.add_warehouse %}
       <div class="form-group">
           <div class="update__related">
             <a class="update__related-icon" href="{% url 'warehouse-create' %}?from={{ request.path|urlencode }}">
@@ -40,11 +43,6 @@
             </a>
             <span class="update__related-text">New Warehouse</span>
           </div>
-      </div>
-      {% else %}
-      <div class="form-group">
-        {{ form.warehouse|as_crispy_field }}
-        {{ form.manufacturer|as_crispy_field }}
       </div>
       {% endif %}
 

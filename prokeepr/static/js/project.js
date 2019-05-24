@@ -1,3 +1,3 @@
 $(document).ready( () => {
-    $(".alert__message").delay(300).fadeOut(5000);
+    $(".alert__message").delay(400).fadeOut(5000);
 });

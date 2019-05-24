@@ -8,10 +8,11 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto mx-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'all-products' %}">Products <span class="sr-only">(current)</span></a>
-      </li>
       {% if request.user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'all-products' %}">Products</a>
+      </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Account
@@ -27,14 +28,26 @@
       </li>
       {% endif %}
 
-      {% if request.user.is_superuser %}
+      {% if perms.add_product %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Admin
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if perms.product.add_product %}
           <a class="dropdown-item" href="{% url 'product-create' %}">Create Product</a>
+          {% endif %}
+
           <a class="dropdown-item" href="{% url 'rental-history' %}">Rental Log</a>
+
+          {% if perms.manufacturer.add_manufacturer %}
+          <a class="dropdown-item" href="{% url 'manufacturer-list' %}">Manufacturers</a>
+          {% endif %}
+
+          {% if perms.warehouse.add_warehouse %}
+            <a class="dropdown-item" href="{% url 'warehouse-list' %}">Warehouses</a>
+          {% endif %}
+
         </div>
       </li>
       {% endif %}

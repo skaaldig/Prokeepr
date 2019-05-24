@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, reverse, get_object_or_404
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, View, RedirectView, DeleteView
@@ -33,10 +34,11 @@ class ProductList(LoginRequiredMixin, ListView):
         return queryset
 
 
-class ProductInstanceBorrow(LoginRequiredMixin, CreateView):
+class ProductInstanceBorrow(LoginRequiredMixin,SuccessMessageMixin, CreateView):
     model = ProductInstance
     form_class = BorrowProductForm
     template_name = 'product/product_borrow.html'
+    success_message = "Demo Borrowed Successfully!"
 
     def dispatch(self, request, *args, **kwargs):
         self.product = get_object_or_404(Product, pk=kwargs["pk"], loan_status="a")
@@ -61,11 +63,12 @@ class ProductInstanceBorrow(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductInstanceReturn(LoginRequiredMixin, UpdateView):
+class ProductInstanceReturn(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = ProductInstance
     context_object_name = 'rental'
     template_name = 'product/product_return.html'
     form_class = ReturnProductForm
+    success_message = "Demo Returned Successfully!"
     today = date.today()
 
     def get_queryset(self):
@@ -79,7 +82,7 @@ class ProductInstanceReturn(LoginRequiredMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return HttpResponseRedirect('all-products')
+        return reverse('all-products')
 
     def form_valid(self, form):
         related_product = Product.objects.get(

@@ -20,15 +20,6 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 user_detail_view = UserDetailView.as_view()
 
 
-class UserListView(LoginRequiredMixin, ListView):
-
-    model = User
-    slug_field = "username"
-    slug_url_kwarg = "username"
-
-
-user_list_view = UserListView.as_view()
-
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
 
