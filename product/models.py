@@ -18,7 +18,7 @@ def manufacturer_directory(instance, filename):
 class Product(models.Model):
     image = models.ImageField(upload_to=manufacturer_directory, null=True)
     model_number = models.CharField(max_length=255)
-    serial_number = models.CharField(max_length=255)
+    serial_number = models.CharField(max_length=255, unique=True)
     human_readable_name = models.CharField(max_length=255)
     created = models.DateField(auto_now_add=True)
     bin_location = models.CharField(max_length=25)
